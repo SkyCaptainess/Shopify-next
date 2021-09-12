@@ -2,6 +2,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { client } from '../../lib/shopify';
+import { Button } from '../../components/ui';
 import ProductOptions from '../../components/products/ProductOptions';
 import ProductSlider from '../../components/products/ProductSlider';
 
@@ -62,6 +63,12 @@ const Product = ({
             selectedVariant={selectedVariant}
             onSelectOption={handleSelectOption}
           />
+
+          <div>
+            <Button variant='primary' size='large'>
+              Add to cart
+            </Button>
+          </div>
         </div>
       </div>
       <div className='bg-white p-4'>

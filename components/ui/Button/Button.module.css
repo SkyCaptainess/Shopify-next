@@ -1,0 +1,25 @@
+.root {
+  @apply bg-gray-200  inline-flex items-center border-transparent rounded 
+  hover:bg-gray-300;
+}
+
+.normal {
+  @apply px-4 py-2;
+}
+
+.medium {
+  @apply px-6 py-3;
+}
+
+.large {
+  @apply px-8 py-3
+  text-lg;
+}
+
+.primary {
+  @apply bg-primary text-white
+  hover:bg-primary;
+}
+
+.inverted {
+}
