@@ -1,0 +1,14 @@
+.gallery {
+  overflow-y: hidden;
+  overflow-x: auto;
+  display: block;
+  margin: 0 -5px;
+  white-space: nowrap;
+}
+
+.imageWrapper {
+  width: 20%;
+  display: inline-block;
+  padding: 0 5px;
+  z-index: 1;
+}
