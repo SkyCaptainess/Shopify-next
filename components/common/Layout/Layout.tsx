@@ -1,4 +1,5 @@
 import React from 'react';
+import { CartSidebar } from '../../cart';
 import Header from '../Header';
 
 const Layout: React.FunctionComponent = ({ children }) => {
@@ -6,6 +7,7 @@ const Layout: React.FunctionComponent = ({ children }) => {
     <>
       <Header />
       <main>{children}</main>
+      <CartSidebar />
     </>
   );
 };

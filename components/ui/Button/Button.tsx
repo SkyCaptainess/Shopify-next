@@ -1,4 +1,3 @@
-import cn from 'classnames';
 import React, {
   forwardRef,
   ButtonHTMLAttributes,
@@ -6,58 +5,66 @@ import React, {
   useRef,
 } from 'react';
 import mergeRefs from 'react-merge-refs';
-import styles from './Button.module.css';
+import classNames from 'classnames';
+import { Spinner } from '..';
+
+type Variant = 'primary' | 'inverse' | 'danger';
+type Size = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
   className?: string;
-  variant?: 'default' | 'primary' | 'inverted';
+  variant?: Variant;
   active?: boolean;
   type?: 'submit' | 'reset' | 'button';
-  Component?: string | JSXElementConstructor<any>;
-  width?: string | number;
+  component?: string | JSXElementConstructor<any>;
+  width?: number;
   loading?: boolean;
   disabled?: boolean;
-  size?: 'normal' | 'medium' | 'large';
+  size?: Size;
 }
+
+const variants = {
+  primary: 'bg-primary text-white hover:bg-gray-50:text-primary',
+  inverse: 'bg-white text-primary hover:bg-primary:text-white border-primary',
+  danger: 'bg-red-600 text-white hover:bg-red-50:text-red-600',
+};
+
+const sizes = {
+  sm: 'py-2 px-4 text-sm',
+  md: 'py-2 px-6 text-md',
+  lg: 'py-3 px-8 text-lg',
+};
 
 const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
   const {
     className,
-    variant = 'default',
+    variant = 'primary',
     children,
     active,
     width,
     loading = false,
     disabled = false,
-    size = 'normal',
+    size = 'sm',
     style = {},
-    Component = 'button',
+    component = 'button',
     ...rest
   } = props;
-  const ref = useRef<typeof Component>(null);
+  const ref = useRef<typeof component>(null);
 
-  const rootClassName = cn(
-    styles.root,
-    {
-      [styles.default]: variant === 'default',
-      [styles.primary]: variant === 'primary',
-      [styles.inverted]: variant === 'inverted',
-      [styles.normal]: size === 'normal',
-      [styles.medium]: size === 'medium',
-      [styles.large]: size === 'large',
-      [styles.loading]: loading,
-      [styles.disabled]: disabled,
-    },
-    className
-  );
+  const Component = component;
 
   return (
     <Component
       aria-pressed={active}
       data-variant={variant}
       ref={mergeRefs([ref, buttonRef])}
-      className={rootClassName}
+      className={classNames(
+        'flex justify-center items-center border border-gray-300 disabled:opacity-70 disabled:cursor-not-allowed rounded-md shadow-sm font-medium focus:outline-none',
+        variants[variant],
+        sizes[size],
+        className
+      )}
       disabled={disabled}
       style={{
         width,
@@ -66,9 +73,15 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       {...rest}
     >
       {children}
-      {loading && <span>....</span>}
+      {loading && (
+        <span className='ml-2'>
+          <Spinner variant='light' />
+        </span>
+      )}
     </Component>
   );
 });
+
+Button.displayName = 'Button';
 
 export default Button;

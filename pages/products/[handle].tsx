@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { client } from '../../lib/shopify';
 import { Button } from '../../components/ui';
+import { CartSuccessPopup } from '../../components/cart';
 import ProductOptions from '../../components/products/ProductOptions';
 import ProductSlider from '../../components/products/ProductSlider';
+import { useCart } from '../../contexts/CartContext';
 
 const Product = ({
   product,
@@ -17,6 +19,9 @@ const Product = ({
   const [selectedOptions, setSelectedOptions] = useState(defaultOptionValues);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   const [selectedImage, setSelectedImage] = useState(product.variants[0].image);
+  const [addToCartStatus, setAddToCartStatus] = useState('idle');
+
+  const { addCartItem, buyNow } = useCart();
 
   const price = `${selectedVariant.priceV2.currencyCode} ${selectedVariant.price}`;
 
@@ -36,10 +41,32 @@ const Product = ({
     setSelectedImage(image);
   };
 
+  const handleAddToCart = async () => {
+    try {
+      setAddToCartStatus('loading');
+      await addCartItem(selectedVariant.id, 1);
+      setAddToCartStatus('succeeded');
+    } catch (error) {
+      setAddToCartStatus('failed');
+    } finally {
+      setTimeout(() => {
+        setAddToCartStatus('idle');
+      }, 1000);
+    }
+  };
+
+  const handleBuyNow = async () => {
+    try {
+      await buyNow(selectedVariant.id, 1);
+    } catch (error) {
+      console.log('error');
+    }
+  };
+
   return (
     <div className='container mx-auto my-5'>
       <div className='lg:flex mb-4 bg-white p-4'>
-        <div className='pr-6 lg:w-1/2'>
+        <div className='lg:pr-6 lg:w-1/2'>
           <div className='relative' style={{ paddingTop: '80%' }}>
             <Image
               src={selectedImage.src}
@@ -64,9 +91,24 @@ const Product = ({
             onSelectOption={handleSelectOption}
           />
 
-          <div>
-            <Button variant='primary' size='large'>
+          <div className='lg:flex'>
+            <Button
+              variant='primary'
+              size='lg'
+              className='mr-4 mb-4 w-full lg:mb-0'
+              onClick={handleAddToCart}
+              disabled={addToCartStatus === 'loading'}
+              loading={addToCartStatus === 'loading'}
+            >
               Add to cart
+            </Button>
+            <Button
+              className='w-full'
+              variant='inverse'
+              size='lg'
+              onClick={handleBuyNow}
+            >
+              Buy Now
             </Button>
           </div>
         </div>
@@ -75,6 +117,7 @@ const Product = ({
         <h3 className='text-xl font-semibold mb-5'>Product Description</h3>
         <p dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
       </div>
+      <CartSuccessPopup visible={addToCartStatus === 'succeeded'} />
     </div>
   );
 };

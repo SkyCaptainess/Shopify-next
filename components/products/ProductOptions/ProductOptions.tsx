@@ -15,7 +15,7 @@ const ProductOptions = ({ options = [], selectedVariant, onSelectOption }) => {
               <button
                 onClick={() => onSelectOption(option.name, value.value)}
                 key={value.value}
-                className={`mr-2 border px-6 py-2 rounded mb-2 ${
+                className={`mr-2 border px-4 text-sm py-2 rounded mb-2 ${
                   getActiveOption(value.value) ? 'border-red-500' : ''
                 }`}
               >

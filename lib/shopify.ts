@@ -1,13 +1,15 @@
 import Client from 'shopify-buy';
 
 export const client = Client.buildClient({
-  domain: 'bagzed.myshopify.com',
-  storefrontAccessToken: '8f7d40bfcd74cba1af28397c056497c4',
+  domain: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_DOMAIN,
+  storefrontAccessToken:
+    process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
 });
 
 // Initializing a client to return translated content
 export const clientWithTranslatedContent = Client.buildClient({
-  domain: 'bagzed.myshopify.com',
-  storefrontAccessToken: '8f7d40bfcd74cba1af28397c056497c4',
+  domain: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_DOMAIN,
+  storefrontAccessToken:
+    process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
   language: 'ja-JP',
 });
