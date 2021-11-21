@@ -1,6 +1,6 @@
 ## Next Shopify Shopping Cart
 
-### Shopping cart built with React, Next js, Tailwind, and Shopify Buy Sdk.
+### Shopping cart built with React, Next js, Tailwind, and Shopify Store Front Graphql API.
 
 ### Installation
 
