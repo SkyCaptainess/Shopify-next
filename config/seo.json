@@ -1,26 +1,19 @@
 {
-  "title": "Bagzed",
-  "titleTemplate": "%s - Bagzed Storefront",
-  "description": "Next.js Commerce - https://www.nextjs.org/commerce",
+  "title": "Toyz",
+  "titleTemplate": "%s - Toyz Storefront",
+  "description": "Buy the best toy collections for all ages.",
   "openGraph": {
-    "title": "Bagzed",
-    "description": "Next.js Commerce - https://www.nextjs.org/commerce",
+    "title": "Toyz",
+    "description": "Buy the best toy collections for all ages.",
     "type": "website",
     "locale": "en_IE",
-    "url": "https://nextjs.org/commerce",
-    "site_name": "Next.js Commerce",
     "images": [
       {
         "url": "/card.png",
         "width": 800,
         "height": 600,
-        "alt": "Next.js Commerce"
+        "alt": "Toyz ECommerce"
       }
     ]
-  },
-  "twitter": {
-    "handle": "@nextjs",
-    "site": "@nextjs",
-    "cardType": "summary_large_image"
   }
 }
