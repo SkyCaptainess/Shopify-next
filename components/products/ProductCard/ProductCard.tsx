@@ -2,27 +2,29 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface Props {
-  product: any;
+import { GetProductsQuery } from '../../../src/generated/graphql';
+
+interface ProductCardProps {
+  product: GetProductsQuery['products']['edges'][0];
 }
 
-const ProductCard = ({ product }: Props) => {
-  const price = `${product.variants[0].priceV2.currencyCode} ${product.variants[0].price}`;
+const ProductCard = ({ product }: ProductCardProps) => {
+  const price = `${product.node.priceRange.minVariantPrice.amount} ${product.node.priceRange.minVariantPrice.currencyCode}`;
 
   return (
-    <div className='rounded overflow-hidden shadow-sm bg-white'>
-      <Link href={`/products/${product.handle}`}>
+    <div className="rounded overflow-hidden shadow-sm bg-white">
+      <Link href={`/products/${product.node.handle}`}>
         <a>
           <Image
-            src={product.images[0].src}
-            alt={product.title}
-            width={400}
-            height={400}
-            objectFit='cover'
+            src={product.node.images.edges[0].node.src}
+            alt={product.node.title}
+            width={480}
+            height={480}
+            objectFit="cover"
           />
-          <div className='p-4'>
-            <p className='text-lg mb-2'>{product.title}</p>
-            <p className='text-lg font-semibold text-red-500'>{price}</p>
+          <div className="p-4">
+            <p className="text-lg mb-2">{product.node.title}</p>
+            <p className="text-lg font-semibold text-red-500">{price}</p>
           </div>
         </a>
       </Link>

@@ -1,11 +1,27 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { client } from '../lib/shopify';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
+
+import { IS_SERVER } from '../constants';
+import { client } from '../lib/apollo-client';
+import {
+  GetCartDocument,
+  GetCartQuery,
+  useCheckoutCreateMutation,
+  useCheckoutLineItemsAddMutation,
+  useCheckoutLineItemsRemoveMutation,
+} from '../src/generated/graphql';
 
 type Status = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 interface Context {
   isCartSidebarOpen: boolean;
-  checkout: any;
+  checkout: GetCartQuery['node'];
+  cartItemsCount: number;
   addCartItem(variantId: string, quantity: number): Promise<void>;
   buyNow(variantId: string, quantity: number): Promise<void>;
   removeCartItem(cartItemId: string): Promise<void>;
@@ -21,72 +37,114 @@ const CartContext = createContext<Context | undefined>(undefined);
 
 export const CartProvider: React.FC = ({ children }) => {
   const [isCartSidebarOpen, setIsCartSidebarOpen] = useState(false);
-  const [checkout, setCheckout] = useState<any>({ lineItems: [] });
+  const [checkout, setCheckout] = useState<GetCartQuery['node'] | null>(null);
   const [cartStatus, setCartStatus] = useState<Status>('idle');
+  const [cartItemsCount, setCartItemsCount] = useState(0);
 
-  const createCheckout = async () => {
-    const res = await client.checkout.create();
-    if (res) {
-      localStorage.setItem('checkoutId', res.id);
-      setCheckout(res);
+  const [createCheckoutMutation] = useCheckoutCreateMutation();
+
+  const [lineItemToAddMutation, { data: lineItemToAddData }] =
+    useCheckoutLineItemsAddMutation();
+
+  const [lineItemToRemoveMutation, { data: lineItemToRemoveData }] =
+    useCheckoutLineItemsRemoveMutation();
+
+  const createCheckout = useCallback(async () => {
+    const { data } = await createCheckoutMutation({ variables: { input: {} } });
+    if (data?.checkoutCreate?.checkout) {
+      localStorage.setItem('checkoutId', data.checkoutCreate.checkout.id);
+      setCheckout(data?.checkoutCreate?.checkout as GetCartQuery['node']);
     }
-  };
+  }, [createCheckoutMutation]);
 
-  const fetchCheckout = async (checkoutId: string) => {
-    try {
-      setCartStatus('loading');
-      const res = await client.checkout.fetch(checkoutId);
-      if (res) {
-        setCheckout(res);
-        setCartStatus('succeeded');
-      } else {
-        setCartStatus('failed');
-      }
-    } catch (error) {
-      setCartStatus('failed');
-    }
-  };
-
-  useEffect(() => {
-    const checkoutId = localStorage.getItem('checkoutId');
-
-    if (checkoutId) {
-      fetchCheckout(checkoutId);
-    } else {
-      createCheckout();
+  const fetchCheckout = useCallback(async (checkoutId: string) => {
+    const { data } = await client.query<GetCartQuery>({
+      query: GetCartDocument,
+      variables: { checkoutId },
+    });
+    if (data.node?.__typename === 'Checkout') {
+      setCheckout(data.node);
+      setCartItemsCount(data.node.lineItems.edges.length);
     }
   }, []);
 
+  useEffect(() => {
+    const initCart = async () => {
+      const checkoutIdLocalStorage = !IS_SERVER
+        ? localStorage.getItem('checkoutId')
+        : '';
+
+      if (checkoutIdLocalStorage) {
+        fetchCheckout(checkoutIdLocalStorage);
+      } else {
+        createCheckout();
+      }
+    };
+
+    initCart();
+  }, [createCheckout, fetchCheckout]);
+
   const addCartItem = async (variantId: string, quantity: number) => {
-    if (!checkout) {
+    if (checkout?.__typename !== 'Checkout') {
       return;
     }
 
-    const lineItemsToAdd = [{ variantId, quantity }];
-    const res = await client.checkout.addLineItems(checkout.id, lineItemsToAdd);
-    if (res) {
-      setCheckout(res);
+    const lineItems = [{ variantId, quantity }];
+
+    await lineItemToAddMutation({
+      variables: {
+        checkoutId: checkout.id,
+        lineItems,
+      },
+    });
+
+    const { data } = await client.query<GetCartQuery>({
+      query: GetCartDocument,
+      variables: { checkoutId: checkout.id },
+    });
+
+    if (data.node?.__typename === 'Checkout') {
+      setCheckout(data.node);
+      setCartItemsCount(data.node.lineItems.edges.length);
     }
   };
 
   const removeCartItem = async (cartItemId: string) => {
-    const res = await client.checkout.removeLineItems(checkout.id, [
-      cartItemId,
-    ]);
-    if (res) {
-      setCheckout(res);
+    if (checkout?.__typename !== 'Checkout') {
+      return;
+    }
+    await lineItemToRemoveMutation({
+      variables: { checkoutId: checkout.id, lineItemIds: [cartItemId] },
+    });
+
+    const { data } = await client.query<GetCartQuery>({
+      query: GetCartDocument,
+      variables: { checkoutId: checkout.id },
+    });
+
+    if (data.node?.__typename === 'Checkout') {
+      setCheckout(data.node);
+      setCartItemsCount(data.node.lineItems.edges.length);
     }
   };
 
   const buyNow = async (variantId: string, quantity: number) => {
-    if (!checkout) {
+    if (checkout?.__typename !== 'Checkout') {
       return;
     }
+    const lineItems = [{ variantId, quantity }];
 
-    const lineItemsToAdd = [{ variantId, quantity }];
-    const res = await client.checkout.addLineItems(checkout.id, lineItemsToAdd);
-    if (res) {
-      window.location.href = res.webUrl;
+    await lineItemToAddMutation({
+      variables: {
+        checkoutId: checkout.id,
+        lineItems,
+      },
+    });
+
+    const result = lineItemToAddData?.checkoutLineItemsAdd?.checkout;
+
+    if (result) {
+      window.location.href = result.webUrl;
     }
   };
 
@@ -111,6 +169,7 @@ export const CartProvider: React.FC = ({ children }) => {
         isLoading,
         isError,
         isSuccess,
+        cartItemsCount,
         addCartItem,
         openCartSidebar,
         closeCartSidebar,

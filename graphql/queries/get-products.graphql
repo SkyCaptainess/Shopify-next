@@ -1,0 +1,33 @@
+query GetProducts {
+  products(first: 20) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        id
+        title
+        handle
+        description
+
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+
+        images(first: 5) {
+          edges {
+            node {
+              altText
+              src
+            }
+          }
+        }
+      }
+    }
+  }
+}

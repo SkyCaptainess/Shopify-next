@@ -1,0 +1,16 @@
+query GetCollections {
+  collections(first: 8) {
+    edges {
+      node {
+        handle
+        id
+        title
+        image {
+          id
+          altText
+          src
+        }
+      }
+    }
+  }
+}

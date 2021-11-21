@@ -1,0 +1,78 @@
+fragment CheckoutFragment on Checkout {
+  id
+  webUrl
+  totalTax
+  subtotalPrice
+  totalPrice
+  lineItems(first: 250) {
+    edges {
+      node {
+        id
+        title
+        variant {
+          id
+          title
+          image {
+            src
+          }
+          price
+        }
+        quantity
+      }
+    }
+  }
+}
+
+mutation checkoutCreate($input: CheckoutCreateInput!) {
+  checkoutCreate(input: $input) {
+    userErrors {
+      message
+      field
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
+
+mutation checkoutLineItemsAdd(
+  $checkoutId: ID!
+  $lineItems: [CheckoutLineItemInput!]!
+) {
+  checkoutLineItemsAdd(checkoutId: $checkoutId, lineItems: $lineItems) {
+    userErrors {
+      message
+      field
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
+
+mutation checkoutLineItemsUpdate(
+  $checkoutId: ID!
+  $lineItems: [CheckoutLineItemUpdateInput!]!
+) {
+  checkoutLineItemsUpdate(checkoutId: $checkoutId, lineItems: $lineItems) {
+    userErrors {
+      message
+      field
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
+
+mutation checkoutLineItemsRemove($checkoutId: ID!, $lineItemIds: [ID!]!) {
+  checkoutLineItemsRemove(checkoutId: $checkoutId, lineItemIds: $lineItemIds) {
+    userErrors {
+      message
+      field
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}

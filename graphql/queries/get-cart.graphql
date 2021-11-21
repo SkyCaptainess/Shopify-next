@@ -1,0 +1,55 @@
+query getCart($checkoutId: ID!) {
+  node(id: $checkoutId) {
+    ... on Checkout {
+      __typename
+      id
+      webUrl
+      subtotalPriceV2 {
+        amount
+        currencyCode
+      }
+      totalTaxV2 {
+        amount
+        currencyCode
+      }
+      totalPriceV2 {
+        amount
+        currencyCode
+      }
+      lineItems(first: 250) {
+        edges {
+          node {
+            id
+            title
+            quantity
+            variant {
+              id
+              title
+              selectedOptions {
+                name
+                value
+              }
+              product {
+                handle
+              }
+              priceV2 {
+                amount
+                currencyCode
+              }
+              image {
+                altText
+                src
+                transformedSrc(
+                  maxWidth: 300
+                  maxHeight: 400
+                  crop: CENTER
+                  preferredContentType: JPG
+                )
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

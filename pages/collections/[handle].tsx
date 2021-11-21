@@ -1,28 +1,38 @@
 import React from 'react';
 import Image from 'next/image';
+import { client } from '../../lib/apollo-client';
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next';
-import { client } from '../../lib/shopify';
 
 import ProductList from '../../components/products/ProductList/ProductList';
+import {
+  GetSingleCollectionDocument,
+  GetSingleCollectionQuery,
+  GetCollectionsDocument,
+  GetCollectionsQuery,
+} from '../../src/generated/graphql';
 
 const Collection = ({
   collection,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  if (!collection) {
+    return null;
+  }
+
   return (
     <div>
-      <div className='container mx-auto mt-10'>
-        <div className='mb-10 relative' style={{ height: 400 }}>
+      <div className="container mx-auto mt-10">
+        <div className="mb-10 relative" style={{ height: 400 }}>
           <Image
-            src={collection.image.src}
-            alt={collection.image.alt}
-            className='w-full h-full absolute top-0 object-cover'
-            layout='fill'
+            src={collection.image?.src}
+            alt={collection.image?.altText || 'Collection image'}
+            className="w-full h-full absolute top-0 object-cover"
+            layout="fill"
           />
-          <div className='bg-black bg-opacity-50 absolute top-0 left-0 w-full h-full flex items-center justify-center'>
-            <h2 className='text-white text-4xl'>{collection.title}</h2>
+          <div className="bg-black bg-opacity-50 absolute top-0 left-0 w-full h-full flex items-center justify-center">
+            <h2 className="text-white text-4xl">{collection.title}</h2>
           </div>
         </div>
-        <ProductList products={collection.products} />
+        <ProductList products={collection.products.edges} />
       </div>
     </div>
   );
@@ -35,30 +45,29 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ handle: string }>) {
   const handle = params?.handle as string;
 
-  const collection = await client.collection.fetchByHandle(handle);
+  const { data } = await client.query<GetSingleCollectionQuery>({
+    query: GetSingleCollectionDocument,
+    variables: { handle },
+  });
 
-  if (!collection) {
-    return {
-      notFound: true,
-    };
+  if (!data.collectionByHandle) {
+    throw new Error('Collection not found');
   }
-
-  const parsedCollection = JSON.parse(JSON.stringify(collection));
 
   return {
     props: {
-      collection: parsedCollection,
+      collection: data.collectionByHandle,
     },
   };
 }
 
 export async function getStaticPaths() {
-  const collections = await client.collection.fetchAllWithProducts();
+  const { data } = await client.query<GetCollectionsQuery>({
+    query: GetCollectionsDocument,
+  });
 
-  const parsedCollections = JSON.parse(JSON.stringify(collections));
-
-  const paths = parsedCollections.map((collection) => ({
-    params: { handle: collection.id },
+  const paths = data.collections.edges.map((collection) => ({
+    params: { handle: collection.node.id },
   }));
 
   return { paths, fallback: 'blocking' };

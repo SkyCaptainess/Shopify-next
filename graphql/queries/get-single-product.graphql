@@ -1,0 +1,60 @@
+query GetSingleProduct($handle: String!) {
+  productByHandle(handle: $handle) {
+    title
+    description
+    descriptionHtml
+
+    seo {
+      title
+      description
+    }
+
+    images(first: 25) {
+      edges {
+        cursor
+        node {
+          id
+          altText
+          src
+          originalSrc
+          transformedSrc
+        }
+      }
+    }
+
+    options {
+      name
+      values
+      id
+    }
+
+    variants(first: 20) {
+      edges {
+        cursor
+        node {
+          id
+          title
+          price
+          quantityAvailable
+
+          selectedOptions {
+            name
+            value
+          }
+          priceV2 {
+            amount
+            currencyCode
+          }
+
+          image {
+            id
+            altText
+            src
+            originalSrc
+            transformedSrc
+          }
+        }
+      }
+    }
+  }
+}

@@ -5,36 +5,42 @@ import ArrowRight from '../../icons/ArrowRight';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { ImageEdge } from '../../../src/generated/graphql';
+
 interface Props {
-  images: any;
-  onSelectImage(image: any): void;
-  activeImage: any;
+  images: ImageEdge[];
+  onSelectImage(image: ImageEdge): void;
+  activeImageID: string;
 }
 
 SwiperCore.use([Navigation]);
 
-const ProductSlider = ({ images = [], activeImage, onSelectImage }: Props) => {
+const ProductSlider = ({
+  images = [],
+  activeImageID,
+  onSelectImage,
+}: Props) => {
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
 
   return (
-    <div className='mt-2 relative'>
+    <div className="mt-2 relative">
       <button
         ref={navigationPrevRef}
-        className='absolute left-0 z-10 p-2 top-1/2 transform 
+        className="absolute left-0 z-10 p-2 top-1/2 transform 
             -translate-y-1/2 bg-black bg-opacity-50 text-white
             disabled:opacity-50
-            '
+            "
       >
         <ArrowLeft />
       </button>
 
       <button
         ref={navigationNextRef}
-        className='absolute right-0 z-10 p-2 top-1/2 transform 
+        className="absolute right-0 z-10 p-2 top-1/2 transform 
             -translate-y-1/2 bg-black bg-opacity-50 text-white
             disabled:opacity-50
-            '
+            "
       >
         <ArrowRight />
       </button>
@@ -57,23 +63,23 @@ const ProductSlider = ({ images = [], activeImage, onSelectImage }: Props) => {
           }}
         >
           {images.map((image) => (
-            <SwiperSlide key={image.id}>
-              <div onClick={() => onSelectImage(image)} role='button'>
-                <div className='relative'>
+            <SwiperSlide key={image.node.id}>
+              <div onClick={() => onSelectImage(image)} role="button">
+                <div className="relative">
                   <div
                     className={`absolute top-0 left-0 bottom-0 right-0 z-10 w-full h-full ${
-                      activeImage.id === image.id
+                      activeImageID === image.node.id
                         ? 'border-red-500 border-2'
                         : 'border'
                     }`}
                   />
-                  <div className='relative' style={{ paddingTop: '100%' }}>
-                    <div className='w-full h-full absolute top-0 left-0'>
+                  <div className="relative" style={{ paddingTop: '100%' }}>
+                    <div className="w-full h-full absolute top-0 left-0">
                       <Image
-                        src={image.src}
-                        alt={image.alt || 'Product image'}
-                        layout='fill'
-                        objectFit='cover'
+                        src={image.node.src}
+                        alt={image.node.altText || 'Product image'}
+                        layout="fill"
+                        objectFit="cover"
                       />
                     </div>
                   </div>
