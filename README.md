@@ -1,4 +1,4 @@
-## Bagzed
+## Next Shopify Shopping Cart
 
 ### Shopping cart built with React, Next js, Tailwind, and Shopify Buy Sdk.
 
