@@ -6,7 +6,7 @@
 
 ```
 git clone https://github.com/jrussumbrella/bagzed
-cd bagzed
+cd next-shopify-shopping-cart
 npm install
 npm run dev
 ```
