@@ -31,7 +31,7 @@ const ProductOptions = ({
                 onClick={() => onSelectOption(option.name, value)}
                 key={value}
                 className={`mr-2 border px-4 text-sm py-2 rounded mb-2 ${
-                  getActiveOption(value) ? 'border-red-500' : ''
+                  getActiveOption(value) ? 'border-primary text-primary' : ''
                 }`}
               >
                 {value}

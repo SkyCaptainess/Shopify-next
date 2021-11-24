@@ -1,8 +1,10 @@
 query GetSingleProduct($handle: String!) {
   productByHandle(handle: $handle) {
+    id
     title
     description
     descriptionHtml
+    tags
 
     seo {
       title

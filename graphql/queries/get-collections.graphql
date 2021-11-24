@@ -1,5 +1,5 @@
-query GetCollections {
-  collections(first: 8) {
+query GetCollections($first: Int!) {
+  collections(first: $first) {
     edges {
       node {
         handle
@@ -9,6 +9,37 @@ query GetCollections {
           id
           altText
           src
+        }
+        products(first: 12) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+          }
+          edges {
+            cursor
+            node {
+              id
+              title
+              handle
+              description
+
+              priceRange {
+                minVariantPrice {
+                  amount
+                  currencyCode
+                }
+              }
+
+              images(first: 5) {
+                edges {
+                  node {
+                    altText
+                    src
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

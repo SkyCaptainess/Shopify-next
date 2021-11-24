@@ -1,20 +1,21 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { client } from '../../lib/apollo-client';
 import { Button } from '../../components/ui';
 import { CartSuccessPopup } from '../../components/cart';
 import ProductOptions from '../../components/products/ProductOptions';
-import ProductSlider from '../../components/products/ProductSlider';
+import ProductVariantsSlider from '../../components/products/ProductVariantsSlider';
 import ProductInputQty from '../../components/products/ProductInputQty';
+import ProductRecommendations from '../../components/products/ProductRecommendations';
 import { useCart } from '../../contexts/CartContext';
 import {
   GetSingleProductDocument,
   GetSingleProductQuery,
   GetProductsDocument,
   GetProductsQuery,
-  ImageEdge,
+  Image as ImageType,
 } from '../../src/generated/graphql';
 
 const Product = ({
@@ -28,13 +29,11 @@ const Product = ({
   const initialSelectedVariant = product
     ? product.variants.edges[0].node
     : null;
-  const initialSelectedImage = product ? initialSelectedVariant?.image : null;
 
   const [selectedOptions, setSelectedOptions] = useState(defaultOptionValues);
   const [selectedVariant, setSelectedVariant] = useState(
     initialSelectedVariant
   );
-  const [selectedImage, setSelectedImage] = useState(initialSelectedImage);
   const [addToCartStatus, setAddToCartStatus] = useState('idle');
   const [qty, setQty] = useState(1);
 
@@ -43,6 +42,10 @@ const Product = ({
   const price = selectedVariant
     ? `${selectedVariant.priceV2.currencyCode} ${selectedVariant.priceV2.amount}`
     : 0;
+
+  useEffect(() => {
+    setSelectedVariant(initialSelectedVariant);
+  }, [initialSelectedVariant]);
 
   const handleSelectOption = (name: string, value: string) => {
     const currentSelectedOptions = { ...selectedOptions, [name]: value };
@@ -60,8 +63,11 @@ const Product = ({
     setSelectedVariant(findVariant.node);
   };
 
-  const handleSelectImage = (value: ImageEdge) => {
-    setSelectedImage(value.node);
+  const handleSelectImage = (image: ImageType) => {
+    if (!selectedVariant) {
+      return;
+    }
+    setSelectedVariant({ ...selectedVariant, image });
   };
 
   const handleAddToCart = async () => {
@@ -109,7 +115,7 @@ const Product = ({
           description: product.description,
           images: [
             {
-              url: selectedImage?.src,
+              url: selectedVariant?.image?.src,
               width: 400,
               height: 400,
               alt: product?.title,
@@ -122,32 +128,22 @@ const Product = ({
           <div className="lg:pr-6 lg:w-1/2">
             <div className="relative" style={{ paddingTop: '80%' }}>
               <Image
-                src={selectedImage?.src}
+                src={selectedVariant?.image?.src}
                 alt={product?.title}
                 layout="fill"
                 objectFit="contain"
               />
             </div>
 
-            <ProductSlider
+            <ProductVariantsSlider
               images={product?.images.edges}
-              activeImageID={selectedImage?.id as string}
+              activeImageID={selectedVariant?.image?.id as string}
               onSelectImage={handleSelectImage}
             />
           </div>
           <div className="flex-1 mt-4 lg:mt-0">
-            <h1 className="text-4xl mb-5">{product?.title}</h1>
-            <p className="text-2xl text-red-500 font-semibold mb-5">{price}</p>
-
-            <div className="mb-4 flex items-center">
-              <ProductInputQty
-                maxQuantity={selectedVariant?.quantityAvailable || undefined}
-                onChange={handleInputQtyChange}
-              />
-              <p className="ml-4 text-gray-500">
-                {selectedVariant?.quantityAvailable} pieces available
-              </p>
-            </div>
+            <h1 className="text-2xl mb-6">{product?.title}</h1>
+            <p className="text-3xl text-primary font-semibold mb-5">{price}</p>
 
             {selectedVariant && (
               <ProductOptions
@@ -157,7 +153,17 @@ const Product = ({
               />
             )}
 
-            <div className="lg:flex">
+            <div className="mb-6 flex items-center">
+              <ProductInputQty
+                maxQuantity={selectedVariant?.quantityAvailable || undefined}
+                onChange={handleInputQtyChange}
+              />
+              <p className="ml-4 text-gray-500">
+                {selectedVariant?.quantityAvailable} pieces available
+              </p>
+            </div>
+
+            <div className="lg:flex mb-6">
               <Button
                 variant="primary"
                 size="lg"
@@ -177,12 +183,27 @@ const Product = ({
                 Buy Now
               </Button>
             </div>
+            {product.tags.length > 0 && (
+              <div className="flex lg:items-center">
+                <p className="text-lg text-gray-500 mr-6">Tags</p>
+                <ul className="flex items-center flex-1 flex-wrap">
+                  {product.tags.map((tag) => (
+                    <li key={tag} className="mr-4 text-primary mb-2 lg:mb-0">
+                      {tag.split('-').join(' ')}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
-        <div className="bg-white p-4">
-          <h3 className="text-xl font-semibold mb-5">Product Description</h3>
-          <p dangerouslySetInnerHTML={{ __html: product?.descriptionHtml }} />
+        <div className="mb-4">
+          <h3 className="text-xl font-semibold mb-2">Product Description</h3>
+          <div className="bg-white p-4">
+            <p dangerouslySetInnerHTML={{ __html: product?.descriptionHtml }} />
+          </div>
         </div>
+        <ProductRecommendations productId={product.id} />
         <CartSuccessPopup visible={addToCartStatus === 'succeeded'} />
       </div>
     </>

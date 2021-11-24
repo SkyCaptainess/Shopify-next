@@ -18,7 +18,7 @@ const CartSidebar = () => {
 
   return (
     <div>
-      <div className="fixed top-0 right-0 z-20 bg-white h-full p-4 border-l w-2/5">
+      <div className="fixed top-0 right-0 z-50 bg-white h-full p-4 border-l w-2/3 lg:w-2/5">
         <div className="flex flex-col h-full">
           <div className="flex items-center mb-6">
             <button aria-label="Close cart sidebar" onClick={closeCartSidebar}>
@@ -45,7 +45,7 @@ const CartSidebar = () => {
           <>
             {checkout.lineItems.edges.length > 0 ? (
               <>
-                <div className="flex-1">
+                <div className="flex-1 overflow-scroll">
                   {checkout.lineItems.edges.map((lineItem) => (
                     <CartItem
                       cartItem={lineItem.node as CheckoutLineItem}
@@ -96,7 +96,7 @@ const CartSidebar = () => {
         </div>
       </div>
       <div
-        className="fixed bg-black bg-opacity-40 top-0 left-0 h-full w-full z-10"
+        className="fixed bg-black bg-opacity-40 top-0 left-0 h-full w-full z-40"
         role="button"
         onClick={closeCartSidebar}
       />

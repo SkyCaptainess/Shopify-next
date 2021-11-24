@@ -5,17 +5,17 @@ import ArrowRight from '../../icons/ArrowRight';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { ImageEdge } from '../../../src/generated/graphql';
+import { Image as ImageType, ImageEdge } from '../../../src/generated/graphql';
 
 interface Props {
   images: ImageEdge[];
-  onSelectImage(image: ImageEdge): void;
+  onSelectImage(image: ImageType): void;
   activeImageID: string;
 }
 
 SwiperCore.use([Navigation]);
 
-const ProductSlider = ({
+const ProductsVariantSlider = ({
   images = [],
   activeImageID,
   onSelectImage,
@@ -64,7 +64,7 @@ const ProductSlider = ({
         >
           {images.map((image) => (
             <SwiperSlide key={image.node.id}>
-              <div onClick={() => onSelectImage(image)} role="button">
+              <div onClick={() => onSelectImage(image.node)} role="button">
                 <div className="relative">
                   <div
                     className={`absolute top-0 left-0 bottom-0 right-0 z-10 w-full h-full ${
@@ -93,4 +93,4 @@ const ProductSlider = ({
   );
 };
 
-export default ProductSlider;
+export default ProductsVariantSlider;

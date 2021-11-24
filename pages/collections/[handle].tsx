@@ -1,9 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { client } from '../../lib/apollo-client';
-import { InferGetStaticPropsType, GetStaticPropsContext } from 'next';
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 
-import ProductList from '../../components/products/ProductList/ProductList';
 import {
   GetSingleCollectionDocument,
   GetSingleCollectionQuery,
@@ -13,7 +12,7 @@ import {
 
 const Collection = ({
   collection,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   if (!collection) {
     return null;
   }
@@ -32,7 +31,6 @@ const Collection = ({
             <h2 className="text-white text-4xl">{collection.title}</h2>
           </div>
         </div>
-        <ProductList products={collection.products.edges} />
       </div>
     </div>
   );
@@ -40,9 +38,9 @@ const Collection = ({
 
 export default Collection;
 
-export async function getStaticProps({
+export async function getServerSideProps({
   params,
-}: GetStaticPropsContext<{ handle: string }>) {
+}: GetServerSidePropsContext<{ handle: string }>) {
   const handle = params?.handle as string;
 
   const { data } = await client.query<GetSingleCollectionQuery>({
@@ -59,16 +57,4 @@ export async function getStaticProps({
       collection: data.collectionByHandle,
     },
   };
-}
-
-export async function getStaticPaths() {
-  const { data } = await client.query<GetCollectionsQuery>({
-    query: GetCollectionsDocument,
-  });
-
-  const paths = data.collections.edges.map((collection) => ({
-    params: { handle: collection.node.id },
-  }));
-
-  return { paths, fallback: 'blocking' };
 }

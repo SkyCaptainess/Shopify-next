@@ -60,7 +60,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       data-variant={variant}
       ref={mergeRefs([ref, buttonRef])}
       className={classNames(
-        'flex justify-center items-center border border-gray-300 disabled:opacity-70 disabled:cursor-not-allowed rounded-md shadow-sm font-medium focus:outline-none',
+        'inline-flex justify-center items-center border border-transparent disabled:opacity-70 disabled:cursor-not-allowed rounded-md shadow-sm font-medium focus:outline-none',
         variants[variant],
         sizes[size],
         className
@@ -74,8 +74,8 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     >
       {children}
       {loading && (
-        <span className='ml-2'>
-          <Spinner variant='light' />
+        <span className="ml-2">
+          <Spinner variant="light" />
         </span>
       )}
     </Component>

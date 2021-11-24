@@ -36,9 +36,12 @@ const CartItem = ({ cartItem }: Props) => {
         alt={cartItem.variant?.image?.altText || 'Product'}
         width={150}
         height={150}
+        objectFit="contain"
       />
-      <div className="flex-1 lg:ml-4">
-        <p className="mb-2 font-semibold lg:text-xl">{cartItem.title}</p>
+      <div className="flex-1 lg:mx-4">
+        <p className="mb-2 font-semibold lg:text-xl h-12 lg:h-14 overflow-hidden">
+          {cartItem.title}
+        </p>
         {cartItem.variant?.selectedOptions.map((option) => (
           <p className="mb-2 lg:text-xl text-gray-500" key={option.name}>
             {option.name}: {option.value}
@@ -46,7 +49,7 @@ const CartItem = ({ cartItem }: Props) => {
         ))}
 
         <p className="mb-2 text-lg">x {cartItem.quantity}</p>
-        <p className="font-semibold lg:text-lg text-red-500 mb-2">
+        <p className="font-semibold lg:text-lg text-primary mb-2">
           {cartItem.variant?.priceV2.currencyCode}{' '}
           {cartItem.variant?.priceV2.amount}
         </p>
