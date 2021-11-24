@@ -2,6 +2,7 @@ import { InferGetStaticPropsType } from 'next';
 import ProductCard from '../components/products/ProductCard';
 import ProductsSlider from '../components/products/ProductsSlider';
 import { Button } from '../components/ui';
+import Hero from '../components/ui/Hero/Hero';
 import { client } from '../lib/apollo-client';
 import {
   GetProductsDocument,
@@ -16,27 +17,15 @@ const Home = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
-      <div className="w-screen relative h-80 lg:h-96">
-        <div
-          style={{
-            backgroundImage: 'url(/images/banner.jpg)',
-          }}
-          className="w-full h-full absolute top-0 left-0 z-10 bg-cover bg-no-repeat"
-        />
-        <div className="absolute z-10 w-full h-full bg-black opacity-50 " />
-        <div className="absolute z-20 top-0 left-0 w-full h-full flex items-center justify-center text-gray-700">
-          <div className="container mt-2 mx-auto p-4 lg:p-0">
-            <h2 className="text-lg lg:text-4xl mb-4 font-semibold text-white">
-              Choose the best toys for your kids.
-            </h2>
-            <p className="text-md lg:text-xl mb-10 text-white">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-              officiis quod atque pariatur sapiente illum{' '}
-            </p>
-            <Button size="lg">Shop Now</Button>
-          </div>
-        </div>
-      </div>
+      <Hero image="/images/banner.png">
+        <h2 className="text-lg lg:text-4xl mb-4 font-semibold">
+          Choose the best toys for your kids.
+        </h2>
+        <p className="text-md lg:text-xl mb-10 ">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
+        <Button size="lg">Shop Now</Button>
+      </Hero>
       <div className="container mx-auto p-4 lg:p-0 mt-10">
         {collections.slice(0, 3).map((collection) => (
           <div key={collection.node.id} className="mb-10">
