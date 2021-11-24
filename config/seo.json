@@ -1,10 +1,10 @@
 {
-  "title": "Toyz",
-  "titleTemplate": "%s - Toyz Storefront",
-  "description": "Buy the best toy collections for all ages.",
+  "title": "Toyzed",
+  "titleTemplate": "%s - Toyzed Storefront",
+  "description": "Choose the best toys for your kids",
   "openGraph": {
-    "title": "Toyz",
-    "description": "Buy the best toy collections for all ages.",
+    "title": "Toyzed",
+    "description": "Choose the best toys for your kids",
     "type": "website",
     "locale": "en_IE",
     "images": [
@@ -12,7 +12,7 @@
         "url": "/card.png",
         "width": 800,
         "height": 600,
-        "alt": "Toyz ECommerce"
+        "alt": "Toyzed ECommerce"
       }
     ]
   }
