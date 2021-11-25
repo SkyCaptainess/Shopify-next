@@ -1,6 +1,11 @@
-query GetCollections($first: Int!) {
-  collections(first: $first) {
+query GetCollections($first: Int!, $cursor: String) {
+  collections(first: $first, after: $cursor) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
     edges {
+      cursor
       node {
         handle
         id

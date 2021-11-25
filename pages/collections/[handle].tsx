@@ -6,8 +6,6 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import {
   GetSingleCollectionDocument,
   GetSingleCollectionQuery,
-  GetCollectionsDocument,
-  GetCollectionsQuery,
 } from '../../src/generated/graphql';
 
 const Collection = ({
