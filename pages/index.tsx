@@ -1,4 +1,5 @@
 import { InferGetStaticPropsType } from 'next';
+import Link from 'next/link';
 import ProductCard from '../components/products/ProductCard';
 import ProductsSlider from '../components/products/ProductsSlider';
 import { Button } from '../components/ui';
@@ -15,6 +16,8 @@ const Home = ({
   collections,
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const lastCursor = products[products.length - 1].cursor;
+
   return (
     <>
       <Hero image="/images/banner.png">
@@ -51,7 +54,11 @@ const Home = ({
           ))}
         </div>
         <div className="text-center mt-4 mb-10">
-          <Button size="md">View More</Button>
+          <Link href={`/products?cursor=${lastCursor}`}>
+            <a>
+              <Button size="md">View More</Button>
+            </a>
+          </Link>
         </div>
       </div>
     </>
@@ -63,6 +70,7 @@ export default Home;
 export const getStaticProps = async () => {
   const { data: productsData } = await client.query<GetProductsQuery>({
     query: GetProductsDocument,
+    variables: { first: 15 },
   });
 
   const { data: collectionsData } = await client.query<GetCollectionsQuery>({

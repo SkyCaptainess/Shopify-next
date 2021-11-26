@@ -1,4 +1,4 @@
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -13,14 +13,12 @@ import { useCart } from '../../contexts/CartContext';
 import {
   GetSingleProductDocument,
   GetSingleProductQuery,
-  GetProductsDocument,
-  GetProductsQuery,
   Image as ImageType,
 } from '../../src/generated/graphql';
 
 const Product = ({
   product,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   let defaultOptionValues: Record<string, string> = {};
   product?.options.forEach((selector) => {
     defaultOptionValues[selector.name] = selector.values[0];
@@ -210,7 +208,7 @@ const Product = ({
   );
 };
 
-export async function getStaticProps({
+export async function getServerSideProps({
   params,
 }: GetStaticPropsContext<{ handle: string }>) {
   const handle = params?.handle as string;
@@ -226,19 +224,7 @@ export async function getStaticProps({
 
   return {
     props: { product: data.productByHandle },
-    revalidate: 100,
   };
-}
-
-export async function getStaticPaths() {
-  const { data } = await client.query<GetProductsQuery>({
-    query: GetProductsDocument,
-  });
-  const paths = data.products.edges.map((product) => ({
-    params: { handle: product.node.handle },
-  }));
-
-  return { paths, fallback: 'blocking' };
 }
 
 export default Product;
