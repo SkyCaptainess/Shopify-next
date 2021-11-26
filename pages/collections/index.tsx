@@ -39,7 +39,7 @@ const CollectionsPage = ({
       variables: { cursor },
       updateQuery: (prevResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) {
-          return fetchMoreResult;
+          return prevResult;
         }
 
         const currentResult = data ? prevResult : collections;

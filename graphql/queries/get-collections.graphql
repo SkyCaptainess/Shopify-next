@@ -28,6 +28,8 @@ query GetCollections($first: Int!, $cursor: String) {
               handle
               description
 
+              tags
+
               priceRange {
                 minVariantPrice {
                   amount

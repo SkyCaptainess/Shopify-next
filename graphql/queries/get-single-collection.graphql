@@ -1,4 +1,4 @@
-query GetSingleCollection($handle: String!) {
+query GetSingleCollection($handle: String!, $first: Int!, $cursor: String) {
   collectionByHandle(handle: $handle) {
     title
     description
@@ -10,7 +10,7 @@ query GetSingleCollection($handle: String!) {
       altText
       src
     }
-    products(first: 20) {
+    products(first: $first, after: $cursor) {
       pageInfo {
         hasNextPage
         hasPreviousPage
@@ -22,6 +22,8 @@ query GetSingleCollection($handle: String!) {
           title
           handle
           description
+
+          tags
 
           priceRange {
             minVariantPrice {
