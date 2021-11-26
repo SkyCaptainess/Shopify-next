@@ -31,9 +31,9 @@ const variants = {
 };
 
 const sizes = {
-  sm: 'py-2 px-4 text-sm',
-  md: 'py-2 px-6 text-md',
-  lg: 'py-3 px-8 text-lg',
+  sm: 'py-2 px-4 text-sm h-10',
+  md: 'py-2 px-6 text-md h-12',
+  lg: 'py-3 px-8 text-lg h-14',
 };
 
 const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
@@ -51,6 +51,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     ...rest
   } = props;
   const ref = useRef<typeof component>(null);
+  const spinnerSize = size === 'sm' ? 'sm' : 'md';
 
   const Component = component;
 
@@ -60,7 +61,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       data-variant={variant}
       ref={mergeRefs([ref, buttonRef])}
       className={classNames(
-        'inline-flex justify-center items-center border border-transparent disabled:opacity-70 disabled:cursor-not-allowed rounded-md shadow-sm font-medium focus:outline-none',
+        'inline-flex justify-center items-center border border-transparent rounded-md shadow-sm font-medium disabled:opacity-70 disabled:cursor-not-allowed focus:outline-none',
         variants[variant],
         sizes[size],
         className
@@ -75,7 +76,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       {children}
       {loading && (
         <span className="ml-2">
-          <Spinner variant="light" />
+          <Spinner size={spinnerSize} variant="light" />
         </span>
       )}
     </Component>

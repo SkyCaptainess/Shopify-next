@@ -66,7 +66,13 @@ const CollectionsPage = ({
       <Collections collections={collectionsData.collections.edges} />
       <div className="mt-10 text-center">
         {collectionsData.collections.pageInfo.hasNextPage ? (
-          <Button onClick={handleViewMore} loading={loading} size="md">
+          <Button
+            onClick={handleViewMore}
+            disabled={loading}
+            loading={loading}
+            size="md"
+            className="w-52"
+          >
             View More
           </Button>
         ) : (
