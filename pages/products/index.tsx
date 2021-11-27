@@ -3,10 +3,12 @@ import { useRouter } from 'next/router';
 import ProductCard from '../../components/products/ProductCard';
 import {
   GetProductsQuery,
+  GetProductsQueryVariables,
   useGetProductsQuery,
 } from '../../src/generated/graphql';
 
 import { Button } from '../../components/ui';
+import ProductsSkeleton from '../../components/products/ProductsSkeleton';
 
 const ProductsPage = () => {
   const { query } = useRouter();
@@ -15,12 +17,25 @@ const ProductsPage = () => {
 
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
+  const variables: GetProductsQueryVariables = {
+    first: 15,
+  };
+
+  if (cursor) {
+    variables.cursor = cursor;
+  }
+
   const { loading, data, error, fetchMore } = useGetProductsQuery({
-    variables: { first: 15, cursor },
+    variables,
   });
 
   if (loading || !data) {
-    return 'loading';
+    return (
+      <div className="container mx-auto mt-6 p-4 lg:p-0">
+        <h2 className="text-2xl font-semibold mb-4">Products</h2>
+        <ProductsSkeleton />
+      </div>
+    );
   }
 
   if (error) {
@@ -65,7 +80,7 @@ const ProductsPage = () => {
 
       {data.products.edges.length > 0 ? (
         <div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
             {data.products.edges.map((product) => (
               <ProductCard product={product.node} key={product.node.id} />
             ))}
