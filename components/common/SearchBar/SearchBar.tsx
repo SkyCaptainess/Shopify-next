@@ -6,13 +6,17 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ onSubmit }: SearchBarProps) => {
-  const [searchText, setSearchText] = useState('');
-
   const router = useRouter();
+
+  const { query } = router;
+
+  const searchTextParam = (query.q as string) || '';
+
+  const [searchText, setSearchText] = useState(searchTextParam);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push({ pathname: '/products', query: { search: searchText } });
+    router.push({ pathname: '/products', query: { q: searchText } });
     onSubmit();
   };
 

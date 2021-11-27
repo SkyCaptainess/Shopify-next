@@ -5704,6 +5704,7 @@ export type GetProductRecommendationsQuery = {
 export type GetProductsQueryVariables = Exact<{
   first: Scalars['Int'];
   cursor?: Maybe<Scalars['String']>;
+  query?: Maybe<Scalars['String']>;
 }>;
 
 export type GetProductsQuery = {
@@ -6442,8 +6443,8 @@ export type GetProductRecommendationsQueryResult = Apollo.QueryResult<
   GetProductRecommendationsQueryVariables
 >;
 export const GetProductsDocument = gql`
-  query GetProducts($first: Int!, $cursor: String) {
-    products(first: $first, after: $cursor) {
+  query GetProducts($first: Int!, $cursor: String, $query: String) {
+    products(first: $first, after: $cursor, query: $query) {
       pageInfo {
         hasNextPage
         hasPreviousPage
@@ -6490,6 +6491,7 @@ export const GetProductsDocument = gql`
  *   variables: {
  *      first: // value for 'first'
  *      cursor: // value for 'cursor'
+ *      query: // value for 'query'
  *   },
  * });
  */

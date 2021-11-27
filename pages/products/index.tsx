@@ -10,20 +10,21 @@ import {
 import { Button } from '../../components/ui';
 import ProductsSkeleton from '../../components/products/ProductsSkeleton';
 
+const PER_PAGE = 15;
+
 const ProductsPage = () => {
   const { query } = useRouter();
 
-  const cursor = (query.cursor as string) || '';
+  const cursor = (query.cursor as string) || null;
+  const search = (query.q as string) || null;
 
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const variables: GetProductsQueryVariables = {
-    first: 15,
+    first: PER_PAGE,
+    cursor,
+    query: search ? `title:*${search}*` : null,
   };
-
-  if (cursor) {
-    variables.cursor = cursor;
-  }
 
   const { loading, data, error, fetchMore } = useGetProductsQuery({
     variables,
@@ -78,6 +79,14 @@ const ProductsPage = () => {
     <div className="container mx-auto mt-6 p-4 lg:p-0">
       <h2 className="text-2xl font-semibold mb-4">Products</h2>
 
+      {search ? (
+        <div className="text-center mb-10">
+          <p>
+            Search results for <strong>{search}</strong>
+          </p>
+        </div>
+      ) : null}
+
       {data.products.edges.length > 0 ? (
         <div>
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
@@ -102,7 +111,10 @@ const ProductsPage = () => {
           </div>
         </div>
       ) : (
-        <p>No products found.</p>
+        <div className="text-center">
+          <p className="mb-1">No products found.</p>
+          <p>Try searching for another keyword</p>
+        </div>
       )}
     </div>
   );
