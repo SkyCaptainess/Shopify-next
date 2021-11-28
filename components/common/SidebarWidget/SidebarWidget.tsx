@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import useOnClickOutside from '../../../hooks/use-click-outside';
 import CloseIcon from '../../icons/Close';
@@ -12,6 +13,12 @@ const SidebarWidget = ({ onClose, isVisible }: SidebarWidgetProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useOnClickOutside(ref, onClose);
+
+  const { pathname } = useRouter();
+
+  const getActiveLink = (path: string) => {
+    return pathname === path;
+  };
 
   if (!isVisible) {
     return null;
@@ -28,22 +35,38 @@ const SidebarWidget = ({ onClose, isVisible }: SidebarWidgetProps) => {
         <ul>
           <li className="border-b p-4 hover:text-primary" onClick={onClose}>
             <Link href="/products">
-              <a>Shop All</a>
+              <a
+                className={`${
+                  getActiveLink('/products') ? 'text-primary' : ''
+                }`}
+              >
+                Shop All
+              </a>
             </Link>
           </li>
           <li className="border-b p-4 hover:text-primary" onClick={onClose}>
             <Link href="/collections">
-              <a>Collections</a>
+              <a
+                className={`${
+                  getActiveLink('/collections') ? 'text-primary' : ''
+                }`}
+              >
+                Collections
+              </a>
             </Link>
           </li>
           <li className="border-b p-4 hover:text-primary" onClick={onClose}>
             <Link href="#">
-              <a>Help</a>
+              <a className={`${getActiveLink('/help') ? 'text-primary' : ''}`}>
+                Help
+              </a>
             </Link>
           </li>
           <li className="p-4 hover:text-primary" onClick={onClose}>
             <Link href="#">
-              <a>About Us</a>
+              <a className={`${getActiveLink('/about') ? 'text-primary' : ''}`}>
+                About Us
+              </a>
             </Link>
           </li>
         </ul>

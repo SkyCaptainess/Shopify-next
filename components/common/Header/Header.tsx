@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+
 import Link from 'next/link';
 import CartIcon from '../../icons/Cart';
 import SearchIcon from '../../icons/Search';
@@ -12,6 +14,12 @@ const Header = () => {
   const [isSidebarWidgetVisible, setIsSidebarWidgetVisible] = useState(false);
 
   const { cartItemsCount, openCartSidebar } = useCart();
+
+  const { pathname } = useRouter();
+
+  const getActiveLink = (path: string) => {
+    return pathname === path;
+  };
 
   return (
     <>
@@ -30,22 +38,38 @@ const Header = () => {
           </div>
 
           <ul className="hidden lg:flex items-center  flex-1 justify-center">
-            <li className="mr-6 hover:text-primary">
+            <li
+              className={`mr-6 hover:text-primary ${
+                getActiveLink('/products') ? 'text-primary' : ''
+              }`}
+            >
               <Link href="/products">
                 <a>Shop All</a>
               </Link>
             </li>
-            <li className="mr-6 hover:text-primary">
+            <li
+              className={`mr-6 hover:text-primary ${
+                getActiveLink('/collections') ? 'text-primary' : ''
+              }`}
+            >
               <Link href="/collections">
                 <a>Collections</a>
               </Link>
             </li>
-            <li className="mr-6 hover:text-primary">
+            <li
+              className={`mr-6 hover:text-primary ${
+                getActiveLink('/help') ? 'text-primary' : ''
+              }`}
+            >
               <Link href="#">
                 <a>Help</a>
               </Link>
             </li>
-            <li className="mr-6 hover:text-primary">
+            <li
+              className={`mr-6 hover:text-primary ${
+                getActiveLink('/about') ? 'tex-primary' : ''
+              }`}
+            >
               <Link href="#">
                 <a>About Us</a>
               </Link>
