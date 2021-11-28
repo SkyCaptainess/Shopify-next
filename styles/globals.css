@@ -12,3 +12,13 @@
 body {
   @apply bg-gray-100;
 }
+
+/* customize nprogress bar */
+#nprogress .bar {
+  height: 3px;
+  background: var(--primary);
+}
+
+#nprogress .spinner-icon {
+  display: none;
+}
