@@ -23,8 +23,7 @@ const ProductsSlider = ({ children, title }: ProductsSliderProps) => {
         <div className="flex items-center">
           <button
             ref={navigationPrevRef}
-            className=" bg-white text-dark
-            
+            className=" bg-white dark:bg-gray-800 text-dark
             rounded-full w-12 h-12
             flex items-center justify-center 
             border
@@ -38,7 +37,7 @@ const ProductsSlider = ({ children, title }: ProductsSliderProps) => {
 
           <button
             ref={navigationNextRef}
-            className="bg-white text-dark-black bg-opacity-50 
+            className="bg-white dark:bg-gray-800 text-dark-black bg-opacity-50 
             disabled:opacity-50
             rounded-full
             w-12 h-12

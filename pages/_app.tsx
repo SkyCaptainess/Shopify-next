@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { DefaultSeo } from 'next-seo';
 import Router from 'next/router';
 import nProgress from 'nprogress';
+import { ThemeProvider } from 'next-themes';
 
 import Layout from '../components/common/Layout';
 import { CartProvider } from '../contexts/CartContext';
@@ -23,11 +24,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <DefaultSeo {...seo} />
       <ApolloProvider client={client}>
-        <CartProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </CartProvider>
+        <ThemeProvider attribute="class">
+          <CartProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </CartProvider>
+        </ThemeProvider>
       </ApolloProvider>
     </>
   );

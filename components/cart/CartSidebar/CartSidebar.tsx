@@ -18,7 +18,7 @@ const CartSidebar = () => {
 
   return (
     <div>
-      <div className="fixed top-0 right-0 z-50 bg-white h-full p-4 border-l w-2/3 lg:w-2/5">
+      <div className="fixed top-0 right-0 z-50 bg-white dark:bg-gray-800 h-full p-4 border-l w-2/3 lg:w-2/5">
         <div className="flex flex-col h-full">
           <div className="flex items-center mb-6">
             <button aria-label="Close cart sidebar" onClick={closeCartSidebar}>

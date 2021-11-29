@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useTheme } from 'next-themes';
 
 import Link from 'next/link';
 import CartIcon from '../../icons/Cart';
+import SunIcon from '../../icons/Sun';
+import MoonIcon from '../../icons/Moon';
 import SearchIcon from '../../icons/Search';
 import HamburgerIcon from '../../icons/Hamburger';
 import { useCart } from '../../../contexts/CartContext';
@@ -15,26 +18,34 @@ const Header = () => {
 
   const { cartItemsCount, openCartSidebar } = useCart();
 
+  const { setTheme, theme } = useTheme();
+
   const { pathname } = useRouter();
 
   const getActiveLink = (path: string) => {
     return pathname === path;
   };
 
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
   return (
     <>
-      <header className="bg-white p-4 lg:p-0 sticky top-0 left-0 z-30 w-full ">
+      <header className="bg-white dark:bg-gray-800 p-4 lg:p-0 sticky top-0 left-0 z-30 w-full ">
         <div className="h-10 lg:h-16 flex items-center mx-auto container">
-          <button
-            className="text-black lg:hidden"
-            onClick={() => setIsSidebarWidgetVisible(true)}
-          >
-            <HamburgerIcon />
-          </button>
-          <div className="flex flex-1 items-center justify-center lg:flex-none lg:block">
-            <Link href="/">
-              <a className="text-2xl font-semibold text-primary">Toyzed</a>
-            </Link>
+          <div className="flex flex-1 lg:flex-none items-center">
+            <button
+              className="lg:hidden mr-4"
+              onClick={() => setIsSidebarWidgetVisible(true)}
+            >
+              <HamburgerIcon />
+            </button>
+            <div className="lg:block">
+              <Link href="/">
+                <a className="text-2xl font-semibold text-primary">Toyzed</a>
+              </Link>
+            </div>
           </div>
 
           <ul className="hidden lg:flex items-center  flex-1 justify-center">
@@ -78,6 +89,11 @@ const Header = () => {
 
           <div className="flex items-center justify-end">
             <ul className="flex items-center ">
+              <li className="mr-6 cursor-pointer relative">
+                <button type="button" onClick={toggleTheme}>
+                  {theme === 'light' ? <MoonIcon /> : <SunIcon />}
+                </button>
+              </li>
               <li className="mr-6 cursor-pointer relative">
                 <button
                   type="button"

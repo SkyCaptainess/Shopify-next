@@ -122,7 +122,7 @@ const Product = ({
         }}
       />
       <div className="container mx-auto my-4 px-4 lg:px-0">
-        <div className="lg:flex mb-4 bg-white p-4">
+        <div className="lg:flex mb-4 bg-white dark:bg-gray-800 p-4">
           <div className="lg:pr-6 lg:w-1/2">
             <div className="relative" style={{ paddingTop: '80%' }}>
               <Image
@@ -197,7 +197,7 @@ const Product = ({
         </div>
         <div className="mb-4">
           <h3 className="text-xl font-semibold mb-2">Product Description</h3>
-          <div className="bg-white p-4">
+          <div className="bg-white dark:bg-gray-800 p-4">
             <p dangerouslySetInnerHTML={{ __html: product?.descriptionHtml }} />
           </div>
         </div>

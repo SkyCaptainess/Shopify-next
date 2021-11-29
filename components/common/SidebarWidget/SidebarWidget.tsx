@@ -26,7 +26,10 @@ const SidebarWidget = ({ onClose, isVisible }: SidebarWidgetProps) => {
 
   return (
     <>
-      <div className="fixed top-0 lef-0 w-1/2 z-50 h-full bg-white" ref={ref}>
+      <div
+        className="fixed top-0 lef-0 w-1/2 z-50 h-full bg-white dark:bg-gray-800"
+        ref={ref}
+      >
         <div className="flex justify-end p-4">
           <button onClick={onClose}>
             <CloseIcon />
