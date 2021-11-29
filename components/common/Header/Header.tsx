@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
+import Image from 'next/image';
 
 import Link from 'next/link';
 import CartIcon from '../../icons/Cart';
@@ -43,7 +44,25 @@ const Header = () => {
             </button>
             <div className="lg:block">
               <Link href="/">
-                <a className="text-2xl font-semibold text-primary">Toyzed</a>
+                <a className="text-2xl font-semibold text-primary">
+                  <div className="w-32 hidden lg:flex items-center">
+                    <Image
+                      src="/images/logo-with-text.png"
+                      alt="Toyzed Logo"
+                      width={160}
+                      height={40}
+                    />
+                  </div>
+
+                  <div className="flex items-center lg:hidden">
+                    <Image
+                      src="/images/logo.png"
+                      alt="Toyzed Logo"
+                      width={36}
+                      height={36}
+                    />
+                  </div>
+                </a>
               </Link>
             </div>
           </div>
