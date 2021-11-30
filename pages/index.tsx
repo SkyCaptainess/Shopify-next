@@ -25,7 +25,7 @@ const Home = ({
           Choose the best toys for your kids.
         </h2>
         <p className="text-md lg:text-xl mb-10 ">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Make playtime a blast with our finest toys and games.
         </p>
         <Button size="lg">Shop Now</Button>
       </Hero>
