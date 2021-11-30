@@ -5,6 +5,8 @@ query GetProductRecommendations($productId: ID!) {
     handle
     description
 
+    tags
+
     priceRange {
       minVariantPrice {
         amount

@@ -54,7 +54,9 @@ const ProductsVariantSlider = ({
             nextEl: navigationNextRef.current,
           }}
           onSwiper={(swiper) => {
+            // @ts-ignore
             swiper.params.navigation.prevEl = navigationPrevRef.current;
+            // @ts-ignore
             swiper.params.navigation.nextEl = navigationNextRef.current;
 
             swiper.navigation.destroy();
