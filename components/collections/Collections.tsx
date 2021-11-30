@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
+import Image from 'next/image';
+
 import { GetCollectionsQuery } from '../../src/generated/graphql';
 
 interface CollectionsProps {
@@ -16,10 +18,11 @@ const Collections = ({ collections }: CollectionsProps) => {
         >
           <Link href={`/collections/${collection.node.handle}`}>
             <a>
-              <img
+              <Image
                 src={collection.node.image?.src as string}
-                alt={collection.node.image?.altText as string}
-                className="w-full h-full object-cover"
+                alt={(collection.node.image?.altText as string) || ''}
+                width={480}
+                height={480}
               />
 
               <div className="bg-black bg-opacity-40 absolute top-0 left-0 w-full h-full flex items-center justify-center p-2">
