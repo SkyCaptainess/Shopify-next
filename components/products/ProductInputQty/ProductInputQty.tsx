@@ -43,14 +43,18 @@ const ProductInputQty = ({
         className="px-4 py-2 border-r disabled:opacity-50"
         disabled={qty === 1}
         onClick={decrement}
+        aria-label="decrement"
       >
         -
       </button>
-      <div className="text-center w-20">{qty}</div>
+      <p className="text-center w-20" >
+        {qty}
+      </p>
       <button
         className="px-4 py-2 border-l disabled:opacity-50"
         disabled={Boolean(maxQuantity && qty >= maxQuantity)}
         onClick={increment}
+        aria-label="increment"
       >
         +
       </button>
