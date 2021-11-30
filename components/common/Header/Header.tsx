@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
-
 import Link from 'next/link';
+
 import CartIcon from '../../icons/Cart';
 import SunIcon from '../../icons/Sun';
 import MoonIcon from '../../icons/Moon';
@@ -39,6 +39,7 @@ const Header = () => {
             <button
               className="lg:hidden mr-4"
               onClick={() => setIsSidebarWidgetVisible(true)}
+              aria-label="menu"
             >
               <HamburgerIcon />
             </button>
@@ -109,12 +110,17 @@ const Header = () => {
           <div className="flex items-center justify-end">
             <ul className="flex items-center ">
               <li className="mr-6 cursor-pointer relative">
-                <button type="button" onClick={toggleTheme}>
+                <button
+                  type="button"
+                  onClick={toggleTheme}
+                  aria-label="toggle theme"
+                >
                   {theme === 'light' ? <MoonIcon /> : <SunIcon />}
                 </button>
               </li>
               <li className="mr-6 cursor-pointer relative">
                 <button
+                  aria-label="search"
                   type="button"
                   onClick={() => setIsSearchWidgetVisible(true)}
                 >
@@ -122,7 +128,11 @@ const Header = () => {
                 </button>
               </li>
               <li className="cursor-pointer relative" onClick={openCartSidebar}>
-                <button type="button" onClick={openCartSidebar}>
+                <button
+                  aria-label="cart"
+                  type="button"
+                  onClick={openCartSidebar}
+                >
                   <CartIcon />
                 </button>
 

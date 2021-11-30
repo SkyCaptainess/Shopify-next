@@ -41,20 +41,25 @@ export const CartProvider: React.FC = ({ children }) => {
   const [cartStatus, setCartStatus] = useState<Status>('idle');
   const [cartItemsCount, setCartItemsCount] = useState(0);
 
-  const [createCheckoutMutation] = useCheckoutCreateMutation();
+  const [createCheckoutMutation] = useCheckoutCreateMutation({
+    onCompleted: (data) => {
+      if (data?.checkoutCreate?.checkout) {
+        localStorage.setItem('checkoutId', data.checkoutCreate.checkout.id);
+        setCheckout(data?.checkoutCreate?.checkout as GetCartQuery['node']);
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const [lineItemToAddMutation, { data: lineItemToAddData }] =
     useCheckoutLineItemsAddMutation();
 
-  const [lineItemToRemoveMutation, { data: lineItemToRemoveData }] =
-    useCheckoutLineItemsRemoveMutation();
+  const [lineItemToRemoveMutation] = useCheckoutLineItemsRemoveMutation();
 
   const createCheckout = useCallback(async () => {
-    const { data } = await createCheckoutMutation({ variables: { input: {} } });
-    if (data?.checkoutCreate?.checkout) {
-      localStorage.setItem('checkoutId', data.checkoutCreate.checkout.id);
-      setCheckout(data?.checkoutCreate?.checkout as GetCartQuery['node']);
-    }
+    createCheckoutMutation({ variables: { input: {} } });
   }, [createCheckoutMutation]);
 
   const fetchCheckout = useCallback(async (checkoutId: string) => {

@@ -29,9 +29,11 @@ const SidebarWidget = ({ onClose, isVisible }: SidebarWidgetProps) => {
       <div
         className="fixed top-0 lef-0 w-1/2 z-50 h-full bg-white dark:bg-gray-800"
         ref={ref}
+        role="dialog"
+        aria-label="sidebar"
       >
         <div className="flex justify-end p-4">
-          <button onClick={onClose}>
+          <button onClick={onClose} aria-label="Close sidebar">
             <CloseIcon />
           </button>
         </div>

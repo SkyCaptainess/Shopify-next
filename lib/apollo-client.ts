@@ -1,8 +1,10 @@
+import fetch from 'cross-fetch';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
   uri: 'https://bagzed.myshopify.com/api/graphql',
+  fetch,
 });
 
 const authLink = setContext((_, { headers }) => {
