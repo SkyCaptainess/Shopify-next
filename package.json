@@ -34,6 +34,7 @@
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "@types/lodash": "^4.14.177",
     "@types/nprogress": "^0.2.0",
     "@types/react": "17.0.20",
     "autoprefixer": "^10.3.4",

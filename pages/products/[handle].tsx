@@ -1,8 +1,8 @@
-import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
+import { GetStaticPropsContext } from 'next';
 import { NextSeo } from 'next-seo';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { client } from '../../lib/apollo-client';
+import { initializeApollo, addApolloState } from '../../lib/apollo-client';
 import { Button } from '../../components/ui';
 import { CartSuccessPopup } from '../../components/cart';
 import ProductOptions from '../../components/products/ProductOptions';
@@ -14,11 +14,23 @@ import {
   GetSingleProductDocument,
   GetSingleProductQuery,
   Image as ImageType,
+  useGetSingleProductQuery,
 } from '../../src/generated/graphql';
+import { useRouter } from 'next/router';
 
-const Product = ({
-  product,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Product = () => {
+  const { query } = useRouter();
+
+  const handle = query.handle as string;
+
+  const { data } = useGetSingleProductQuery({
+    variables: {
+      handle,
+    },
+  });
+
+  const product = data?.productByHandle;
+
   let defaultOptionValues: Record<string, string> = {};
   product?.options.forEach((selector) => {
     defaultOptionValues[selector.name] = selector.values[0];
@@ -46,6 +58,10 @@ const Product = ({
   }, [initialSelectedVariant]);
 
   const handleSelectOption = (name: string, value: string) => {
+    if (!product) {
+      return;
+    }
+
     const currentSelectedOptions = { ...selectedOptions, [name]: value };
     setSelectedOptions(currentSelectedOptions);
 
@@ -101,6 +117,10 @@ const Product = ({
       console.log('error');
     }
   };
+
+  if (!product) {
+    return null;
+  }
 
   return (
     <>
@@ -213,18 +233,16 @@ export async function getServerSideProps({
 }: GetStaticPropsContext<{ handle: string }>) {
   const handle = params?.handle as string;
 
-  const { data, error } = await client.query<GetSingleProductQuery>({
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query<GetSingleProductQuery>({
     query: GetSingleProductDocument,
     variables: { handle },
   });
 
-  if (error || !data.productByHandle) {
-    throw new Error('Product not found');
-  }
-
-  return {
-    props: { product: data.productByHandle },
-  };
+  return addApolloState(apolloClient, {
+    props: {},
+  });
 }
 
 export default Product;

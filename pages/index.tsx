@@ -4,7 +4,7 @@ import ProductCard from '../components/products/ProductCard';
 import ProductsSlider from '../components/products/ProductsSlider';
 import { Button } from '../components/ui';
 import Hero from '../components/ui/Hero/Hero';
-import { client } from '../lib/apollo-client';
+import { initializeApollo } from '../lib/apollo-client';
 import {
   GetProductsDocument,
   GetProductsQuery,
@@ -68,15 +68,17 @@ const Home = ({
 export default Home;
 
 export const getStaticProps = async () => {
-  const { data: productsData } = await client.query<GetProductsQuery>({
+  const apolloClient = initializeApollo();
+  const { data: productsData } = await apolloClient.query<GetProductsQuery>({
     query: GetProductsDocument,
     variables: { first: 15 },
   });
 
-  const { data: collectionsData } = await client.query<GetCollectionsQuery>({
-    query: GetCollectionsDocument,
-    variables: { first: 3 },
-  });
+  const { data: collectionsData } =
+    await apolloClient.query<GetCollectionsQuery>({
+      query: GetCollectionsDocument,
+      variables: { first: 3 },
+    });
 
   return {
     props: {

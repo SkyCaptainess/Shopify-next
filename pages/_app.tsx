@@ -7,7 +7,7 @@ import { ThemeProvider } from 'next-themes';
 
 import Layout from '../components/common/Layout';
 import { CartProvider } from '../contexts/CartContext';
-import { client } from '../lib/apollo-client';
+import { useApollo } from '../lib/apollo-client';
 import seo from '../config/seo.json';
 
 import 'swiper/css';
@@ -20,10 +20,12 @@ Router.events.on('routeChangeError', nProgress.done);
 Router.events.on('routeChangeComplete', nProgress.done);
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const apolloClient = useApollo(pageProps);
+
   return (
     <>
       <DefaultSeo {...seo} />
-      <ApolloProvider client={client}>
+      <ApolloProvider client={apolloClient}>
         <ThemeProvider attribute="class">
           <CartProvider>
             <Layout>

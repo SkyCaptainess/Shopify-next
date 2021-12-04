@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import ProductCard from '../../components/products/ProductCard';
 import {
+  GetProductsDocument,
   GetProductsQuery,
   GetProductsQueryVariables,
   useGetProductsQuery,
 } from '../../src/generated/graphql';
-
+import { initializeApollo, addApolloState } from '../../lib/apollo-client';
 import { Button } from '../../components/ui';
 import ProductsSkeleton from '../../components/products/ProductsSkeleton';
 
@@ -46,31 +48,8 @@ const ProductsPage = () => {
   const handleViewMore = async () => {
     setIsLoadingMore(true);
     const cursor = data.products.edges[data.products.edges.length - 1].cursor;
-
     await fetchMore({
       variables: { cursor },
-      updateQuery: (prevResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) {
-          return prevResult;
-        }
-
-        if (!fetchMoreResult) {
-          return prevResult;
-        }
-
-        const result: GetProductsQuery = {
-          ...fetchMoreResult,
-          products: {
-            ...fetchMoreResult.products,
-            edges: [
-              ...prevResult.products.edges,
-              ...fetchMoreResult.products.edges,
-            ],
-          },
-        };
-
-        return result;
-      },
     });
     setIsLoadingMore(false);
   };
@@ -88,7 +67,7 @@ const ProductsPage = () => {
       ) : null}
 
       {data.products.edges.length > 0 ? (
-        <div>
+        <>
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
             {data.products.edges.map((product) => (
               <ProductCard product={product.node} key={product.node.id} />
@@ -109,7 +88,7 @@ const ProductsPage = () => {
               <p className="text-red-500">No more collections.</p>
             )}
           </div>
-        </div>
+        </>
       ) : (
         <div className="text-center">
           <p className="mb-1">No products found.</p>
@@ -121,3 +100,27 @@ const ProductsPage = () => {
 };
 
 export default ProductsPage;
+
+export const getServerSideProps = async ({
+  query,
+}: GetServerSidePropsContext) => {
+  const cursor = (query.cursor as string) || null;
+  const search = (query.q as string) || null;
+
+  const variables: GetProductsQueryVariables = {
+    first: PER_PAGE,
+    cursor,
+    query: search ? `title:*${search}*` : null,
+  };
+
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query<GetProductsQuery>({
+    query: GetProductsDocument,
+    variables,
+  });
+
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+};

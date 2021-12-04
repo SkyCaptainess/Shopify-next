@@ -4,4 +4,7 @@ module.exports = {
   images: {
     domains: ['cdn.shopify.com'],
   },
+  experimental: {
+    scrollRestoration: true,
+  },
 };

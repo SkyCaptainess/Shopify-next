@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { client } from '../../lib/apollo-client';
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import { initializeApollo, addApolloState } from '../../lib/apollo-client';
+import { useRouter } from 'next/router';
+import { GetServerSidePropsContext } from 'next';
 
 import ProductCard from '../../components/products/ProductCard';
 import { Button } from '../../components/ui';
@@ -11,74 +12,40 @@ import {
   useGetSingleCollectionQuery,
 } from '../../src/generated/graphql';
 
-const Collection = ({
-  collection,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const initialCursor = collection.collectionByHandle?.products.edges.length
-    ? collection.collectionByHandle?.products.edges[
-        collection.collectionByHandle.products.edges.length - 1
-      ].cursor
-    : null;
+const PER_PAGE = 20;
 
-  const [skip, setSkip] = useState(true);
+const Collection = () => {
+  const { query } = useRouter();
 
-  const { data, loading, fetchMore } = useGetSingleCollectionQuery({
+  const handle = query.handle as string;
+
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  const { data, fetchMore } = useGetSingleCollectionQuery({
     variables: {
-      handle: collection.collectionByHandle?.handle as string,
-      first: 20,
+      handle,
+      first: PER_PAGE,
     },
-    skip,
-    notifyOnNetworkStatusChange: true,
   });
 
-  const collectionData = data ? data : collection;
+  const handleViewMore = async () => {
+    if (!data?.collectionByHandle) {
+      return;
+    }
 
-  const handleViewMore = () => {
-    setSkip(false);
+    const cursor =
+      data.collectionByHandle.products.edges[
+        data.collectionByHandle.products.edges.length - 1
+      ].cursor;
 
-    const cursor = data?.collectionByHandle
-      ? data.collectionByHandle.products.edges[
-          data.collectionByHandle.products.edges.length - 1
-        ].cursor
-      : initialCursor;
-
-    fetchMore({
+    setIsLoadingMore(true);
+    await fetchMore({
       variables: { cursor },
-      updateQuery: (prevResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) {
-          return prevResult;
-        }
-
-        if (!fetchMoreResult.collectionByHandle) {
-          return prevResult;
-        }
-
-        const currentResult = data ? prevResult : collection;
-
-        if (!currentResult.collectionByHandle) {
-          return prevResult;
-        }
-
-        const result: GetSingleCollectionQuery = {
-          ...fetchMoreResult,
-          collectionByHandle: {
-            ...fetchMoreResult.collectionByHandle,
-            products: {
-              ...fetchMoreResult.collectionByHandle.products,
-              edges: [
-                ...currentResult.collectionByHandle.products.edges,
-                ...fetchMoreResult.collectionByHandle.products.edges,
-              ],
-            },
-          },
-        };
-
-        return result;
-      },
     });
+    setIsLoadingMore(false);
   };
 
-  if (!collectionData.collectionByHandle) {
+  if (!data?.collectionByHandle) {
     return null;
   }
 
@@ -90,36 +57,30 @@ const Collection = ({
           style={{ height: 400 }}
         >
           <Image
-            src={collectionData.collectionByHandle.image?.src}
-            alt={
-              collectionData.collectionByHandle.image?.altText ||
-              'Collection image'
-            }
+            src={data.collectionByHandle.image?.src}
+            alt={data.collectionByHandle.image?.altText || 'Collection image'}
             className="w-full h-full absolute top-0 object-cover"
             layout="fill"
           />
           <div className="bg-black bg-opacity-50 absolute top-0 left-0 w-full h-full flex items-center justify-center">
             <h2 className="text-white text-4xl">
-              {collectionData.collectionByHandle.title}
+              {data.collectionByHandle.title}
             </h2>
           </div>
         </div>
-        {collectionData.collectionByHandle.products.edges.length > 0 ? (
+        {data.collectionByHandle.products.edges.length > 0 ? (
           <>
             <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-              {collectionData.collectionByHandle.products.edges.map(
-                (product) => (
-                  <ProductCard key={product.node.id} product={product.node} />
-                )
-              )}
+              {data.collectionByHandle.products.edges.map((product) => (
+                <ProductCard key={product.node.id} product={product.node} />
+              ))}
             </div>
             <div className="mt-10 text-center">
-              {collectionData.collectionByHandle.products.pageInfo
-                .hasNextPage ? (
+              {data.collectionByHandle.products.pageInfo.hasNextPage ? (
                 <Button
                   onClick={handleViewMore}
-                  disabled={loading}
-                  loading={loading}
+                  disabled={isLoadingMore}
+                  loading={isLoadingMore}
                   size="md"
                   className="w-52"
                 >
@@ -145,18 +106,14 @@ export async function getServerSideProps({
 }: GetServerSidePropsContext<{ handle: string }>) {
   const handle = params?.handle as string;
 
-  const { data } = await client.query<GetSingleCollectionQuery>({
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query<GetSingleCollectionQuery>({
     query: GetSingleCollectionDocument,
-    variables: { handle, first: 20 },
+    variables: { handle, first: PER_PAGE },
   });
 
-  if (!data.collectionByHandle) {
-    throw new Error('Collection not found');
-  }
-
-  return {
-    props: {
-      collection: data,
-    },
-  };
+  return addApolloState(apolloClient, {
+    props: {},
+  });
 }

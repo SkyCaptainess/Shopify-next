@@ -7,7 +7,7 @@ import {
 } from 'react';
 
 import { IS_SERVER } from '../constants';
-import { client } from '../lib/apollo-client';
+import { initializeApollo } from '../lib/apollo-client';
 import {
   GetCartDocument,
   GetCartQuery,
@@ -41,6 +41,8 @@ export const CartProvider: React.FC = ({ children }) => {
   const [cartStatus, setCartStatus] = useState<Status>('idle');
   const [cartItemsCount, setCartItemsCount] = useState(0);
 
+  const apolloClient = initializeApollo();
+
   const [createCheckoutMutation] = useCheckoutCreateMutation({
     onCompleted: (data) => {
       if (data?.checkoutCreate?.checkout) {
@@ -63,7 +65,7 @@ export const CartProvider: React.FC = ({ children }) => {
   }, [createCheckoutMutation]);
 
   const fetchCheckout = useCallback(async (checkoutId: string) => {
-    const { data } = await client.query<GetCartQuery>({
+    const { data } = await apolloClient.query<GetCartQuery>({
       query: GetCartDocument,
       variables: { checkoutId },
     });
@@ -103,7 +105,7 @@ export const CartProvider: React.FC = ({ children }) => {
       },
     });
 
-    const { data } = await client.query<GetCartQuery>({
+    const { data } = await apolloClient.query<GetCartQuery>({
       query: GetCartDocument,
       variables: { checkoutId: checkout.id },
     });
@@ -122,7 +124,7 @@ export const CartProvider: React.FC = ({ children }) => {
       variables: { checkoutId: checkout.id, lineItemIds: [cartItemId] },
     });
 
-    const { data } = await client.query<GetCartQuery>({
+    const { data } = await apolloClient.query<GetCartQuery>({
       query: GetCartDocument,
       variables: { checkoutId: checkout.id },
     });
