@@ -41,6 +41,35 @@ const Collection = () => {
     setIsLoadingMore(true);
     await fetchMore({
       variables: { cursor },
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) {
+          return prevResult;
+        }
+
+        if (!fetchMoreResult.collectionByHandle) {
+          return prevResult;
+        }
+
+        if (!prevResult.collectionByHandle) {
+          return prevResult;
+        }
+
+        const result: GetSingleCollectionQuery = {
+          ...fetchMoreResult,
+          collectionByHandle: {
+            ...fetchMoreResult.collectionByHandle,
+            products: {
+              ...fetchMoreResult.collectionByHandle.products,
+              edges: [
+                ...prevResult.collectionByHandle.products.edges,
+                ...fetchMoreResult.collectionByHandle.products.edges,
+              ],
+            },
+          },
+        };
+
+        return result;
+      },
     });
     setIsLoadingMore(false);
   };
