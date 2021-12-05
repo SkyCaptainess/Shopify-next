@@ -1,15 +1,9 @@
-import { CurrencyCode } from '../src/generated/graphql';
+import { Document } from '@contentful/rich-text-types';
 
-export interface Product {
-  id: string;
-  title: string;
-  description: string;
-  image: {
-    src: string;
-    alt: string;
-  };
-  price: {
-    amount: number;
-    currencyCode: CurrencyCode;
+export interface Page {
+  fields: {
+    title: string;
+    slug: string;
+    description: Document;
   };
 }

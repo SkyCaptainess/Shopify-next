@@ -14,10 +14,12 @@ const SidebarWidget = ({ onClose, isVisible }: SidebarWidgetProps) => {
 
   useOnClickOutside(ref, onClose);
 
-  const { pathname } = useRouter();
+  const { pathname, query } = useRouter();
+
+  const page = query.page as string;
 
   const getActiveLink = (path: string) => {
-    return pathname === path;
+    return pathname === path || page === path.slice(1);
   };
 
   if (!isVisible) {
@@ -61,16 +63,16 @@ const SidebarWidget = ({ onClose, isVisible }: SidebarWidgetProps) => {
             </Link>
           </li>
           <li className="border-b p-4 hover:text-primary" onClick={onClose}>
-            <Link href="#">
+            <Link href="/help">
               <a className={`${getActiveLink('/help') ? 'text-primary' : ''}`}>
                 Help
               </a>
             </Link>
           </li>
           <li className="p-4 hover:text-primary" onClick={onClose}>
-            <Link href="#">
+            <Link href="/about">
               <a className={`${getActiveLink('/about') ? 'text-primary' : ''}`}>
-                About Us
+                About
               </a>
             </Link>
           </li>

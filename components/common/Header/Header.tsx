@@ -21,15 +21,18 @@ const Header = () => {
 
   const { setTheme, theme } = useTheme();
 
-  const { pathname } = useRouter();
+  const { pathname, query } = useRouter();
+
+  const page = query.page as string;
 
   const getActiveLink = (path: string) => {
-    return pathname === path;
+    return pathname === path || page === path.slice(1);
   };
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
+
 
   return (
     <>
@@ -92,17 +95,17 @@ const Header = () => {
                 getActiveLink('/help') ? 'text-primary' : ''
               }`}
             >
-              <Link href="#">
+              <Link href="/help">
                 <a>Help</a>
               </Link>
             </li>
             <li
               className={`mr-6 hover:text-primary ${
-                getActiveLink('/about') ? 'tex-primary' : ''
+                getActiveLink('/about') ? 'text-primary' : ''
               }`}
             >
-              <Link href="#">
-                <a>About Us</a>
+              <Link href="/about">
+                <a>About</a>
               </Link>
             </li>
           </ul>
