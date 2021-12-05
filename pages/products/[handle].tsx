@@ -2,6 +2,7 @@ import { GetStaticPropsContext } from 'next';
 import { NextSeo } from 'next-seo';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Error from 'next/error';
 import { initializeApollo, addApolloState } from '../../lib/apollo-client';
 import { Button } from '../../components/ui';
 import { CartSuccessPopup } from '../../components/cart';
@@ -119,7 +120,7 @@ const Product = () => {
   };
 
   if (!product) {
-    return null;
+    return <Error statusCode={404} />;
   }
 
   return (

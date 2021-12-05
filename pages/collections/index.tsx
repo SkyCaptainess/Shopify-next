@@ -7,14 +7,14 @@ import {
   GetCollectionsQuery,
   useGetCollectionsQuery,
 } from '../../src/generated/graphql';
-import { Button } from '../../components/ui';
+import { Button, Alert } from '../../components/ui';
 
 const PER_PAGE = 12;
 
 const CollectionsPage = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const { data, fetchMore } = useGetCollectionsQuery({
+  const { data, fetchMore, error } = useGetCollectionsQuery({
     variables: { first: PER_PAGE },
     notifyOnNetworkStatusChange: true,
   });
@@ -37,7 +37,14 @@ const CollectionsPage = () => {
   };
 
   if (!data) {
-    return null;
+    return (
+      <div className="container mx-auto p-4 lg:p-0 mt-6">
+        <Alert
+          variant="danger"
+          message="Sorry. We were'nt able to display collections right now. Please try again soon."
+        />
+      </div>
+    );
   }
 
   return (

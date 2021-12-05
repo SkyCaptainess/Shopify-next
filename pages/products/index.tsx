@@ -9,7 +9,7 @@ import {
   useGetProductsQuery,
 } from '../../src/generated/graphql';
 import { initializeApollo, addApolloState } from '../../lib/apollo-client';
-import { Button } from '../../components/ui';
+import { Button, Alert } from '../../components/ui';
 import ProductsSkeleton from '../../components/products/ProductsSkeleton';
 
 const PER_PAGE = 15;
@@ -41,10 +41,6 @@ const ProductsPage = () => {
     );
   }
 
-  if (error) {
-    return 'error';
-  }
-
   const handleViewMore = async () => {
     setIsLoadingMore(true);
     const cursor = data.products.edges[data.products.edges.length - 1].cursor;
@@ -53,6 +49,14 @@ const ProductsPage = () => {
     });
     setIsLoadingMore(false);
   };
+
+  if (error) {
+    return (
+      <div className="container mx-auto mt-6 p-4 lg:p-0">
+        <Alert variant="danger" message="Sorry. We were'nt able to display products right now. Please try again soon." />
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto mt-6 p-4 lg:p-0">
