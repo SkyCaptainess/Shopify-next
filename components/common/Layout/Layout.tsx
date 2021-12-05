@@ -7,7 +7,7 @@ const Layout: React.FunctionComponent = ({ children }) => {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main style={{ minHeight: '60vh' }}>{children}</main>
       <CartSidebar />
       <Footer />
     </>

@@ -53,7 +53,10 @@ const ProductsPage = () => {
   if (error) {
     return (
       <div className="container mx-auto mt-6 p-4 lg:p-0">
-        <Alert variant="danger" message="Sorry. We were'nt able to display products right now. Please try again soon." />
+        <Alert
+          variant="danger"
+          message="Sorry. We were'nt able to display products right now. Please try again soon."
+        />
       </div>
     );
   }
