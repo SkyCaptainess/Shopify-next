@@ -27,7 +27,11 @@ const Home = ({
         <p className="text-md lg:text-xl mb-10 ">
           Make playtime a blast with our finest toys and games.
         </p>
-        <Button size="lg">Shop Now</Button>
+        <Link href="/products">
+          <a>
+            <Button size="lg">Shop Now</Button>
+          </a>
+        </Link>
       </Hero>
       <div className="container mx-auto p-4 lg:p-0 mt-10">
         {collections.slice(0, 3).map((collection) => (
