@@ -7,7 +7,7 @@ interface HeroProps {
 
 const Hero = ({ children, image }: HeroProps) => {
   return (
-    <div className="w-screen relative h-80 lg:h-96">
+    <div className="w-full relative h-80 lg:h-96">
       <div
         style={{
           backgroundImage: `url(${image})`,
