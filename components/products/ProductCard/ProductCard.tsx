@@ -12,7 +12,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const price = `${product.priceRange.minVariantPrice.amount} ${product.priceRange.minVariantPrice.currencyCode}`;
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden" data-cy="product-card">
       <Link href={`/products/${product.handle}`}>
         <a>
           <div className="rounded-lg overflow-hidden bg-white">

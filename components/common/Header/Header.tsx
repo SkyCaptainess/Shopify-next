@@ -33,7 +33,6 @@ const Header = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
-
   return (
     <>
       <header className="bg-white dark:bg-gray-800 p-4 lg:p-0 sticky top-0 left-0 z-30 w-full ">
@@ -146,6 +145,7 @@ const Header = () => {
                 flex
                 items-center justify-center
                 "
+                    data-cy="cart-item-count"
                   >
                     {cartItemsCount}
                   </span>

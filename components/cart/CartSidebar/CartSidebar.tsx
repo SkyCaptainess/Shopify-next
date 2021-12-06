@@ -44,15 +44,15 @@ const CartSidebar = () => {
 
           <>
             {checkout.lineItems.edges.length > 0 ? (
-              <>
-                <div className="flex-1 overflow-scroll">
+              <div data-cy="cart-list">
+                <ul className="flex-1 overflow-scroll">
                   {checkout.lineItems.edges.map((lineItem) => (
                     <CartItem
                       cartItem={lineItem.node as CheckoutLineItem}
                       key={lineItem.node.id}
                     />
                   ))}
-                </div>
+                </ul>
 
                 <div className="mt-10">
                   <div className="mb-4 flex items-center justify-end">
@@ -86,7 +86,7 @@ const CartSidebar = () => {
                     Checkout
                   </Button>
                 </div>
-              </>
+              </div>
             ) : (
               <div className="text-center my-10">
                 <p className="text-2xl">Your cart is empty :(</p>

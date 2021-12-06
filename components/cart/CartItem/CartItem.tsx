@@ -26,7 +26,7 @@ const CartItem = ({ cartItem }: Props) => {
   };
 
   return (
-    <div
+    <li
       className={`lg:flex mb-4 border-b pb-4  relative ${
         removing ? 'opacity-50' : ''
       }`}
@@ -59,11 +59,12 @@ const CartItem = ({ cartItem }: Props) => {
           className="text-red-500"
           disabled={removing}
           onClick={handleRemoveCartItem}
+          aria-label="Remove cart item"
         >
           {removing ? <Spinner /> : <Trash />}
         </button>
       </div>
-    </div>
+    </li>
   );
 };
 
