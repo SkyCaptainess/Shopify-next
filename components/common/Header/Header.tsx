@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import CartIcon from '../../icons/Cart';
-import SunIcon from '../../icons/Sun';
-import MoonIcon from '../../icons/Moon';
 import SearchIcon from '../../icons/Search';
 import HamburgerIcon from '../../icons/Hamburger';
 import { useCart } from '../../../contexts/CartContext';
 import SearchWidget from '../SearchWidget';
 import SidebarWidget from '../SidebarWidget';
+import ThemeSwitcher from '../ThemeSwitcher';
 
 const Header = () => {
   const [isSearchWidgetVisible, setIsSearchWidgetVisible] = useState(false);
@@ -19,18 +17,12 @@ const Header = () => {
 
   const { cartItemsCount, openCartSidebar } = useCart();
 
-  const { setTheme, theme } = useTheme();
-
   const { pathname, query } = useRouter();
 
   const page = query.page as string;
 
   const getActiveLink = (path: string) => {
     return pathname === path || page === path.slice(1);
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
   return (
@@ -112,13 +104,7 @@ const Header = () => {
           <div className="flex items-center justify-end">
             <ul className="flex items-center ">
               <li className="mr-6 cursor-pointer relative">
-                <button
-                  type="button"
-                  onClick={toggleTheme}
-                  aria-label="toggle theme"
-                >
-                  {theme === 'light' ? <MoonIcon /> : <SunIcon />}
-                </button>
+                <ThemeSwitcher />
               </li>
               <li className="mr-6 cursor-pointer relative">
                 <button
