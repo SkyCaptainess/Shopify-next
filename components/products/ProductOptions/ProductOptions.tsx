@@ -11,11 +11,7 @@ interface ProductOptionsProps {
   onSelectOption: (option: string, value: string) => void;
 }
 
-const ProductOptions = ({
-  options = [],
-  selectedVariant,
-  onSelectOption,
-}: ProductOptionsProps) => {
+const ProductOptions = ({ options = [], selectedVariant, onSelectOption }: ProductOptionsProps) => {
   const getActiveOption = (option: string) => {
     return selectedVariant === option;
   };

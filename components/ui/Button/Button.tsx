@@ -1,9 +1,4 @@
-import React, {
-  forwardRef,
-  ButtonHTMLAttributes,
-  JSXElementConstructor,
-  useRef,
-} from 'react';
+import React, { forwardRef, ButtonHTMLAttributes, JSXElementConstructor, useRef } from 'react';
 import mergeRefs from 'react-merge-refs';
 import classNames from 'classnames';
 import { Spinner } from '..';

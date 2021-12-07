@@ -33,10 +33,7 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
           onChange={(e) => setSearchText(e.target.value)}
           value={searchText}
         />
-        <button
-          type="submit"
-          className="w-10 items-center flex justify-center"
-        >
+        <button type="submit" className="w-10 items-center flex justify-center">
           <SearchIcon />
         </button>
       </div>

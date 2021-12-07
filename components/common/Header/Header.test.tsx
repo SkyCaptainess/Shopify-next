@@ -46,9 +46,7 @@ test('Should show search widget when search button click', () => {
 
   userEvent.click(cartButton);
 
-  expect(
-    screen.getByPlaceholderText('Search for products...')
-  ).toBeInTheDocument();
+  expect(screen.getByPlaceholderText('Search for products...')).toBeInTheDocument();
 });
 
 test('Should show sidebar widget when menu button click', () => {

@@ -35,9 +35,8 @@ const Collection = () => {
     }
 
     const cursor =
-      data.collectionByHandle.products.edges[
-        data.collectionByHandle.products.edges.length - 1
-      ].cursor;
+      data.collectionByHandle.products.edges[data.collectionByHandle.products.edges.length - 1]
+        .cursor;
 
     setIsLoadingMore(true);
     await fetchMore({
@@ -82,10 +81,7 @@ const Collection = () => {
   return (
     <div>
       <div className="container mx-auto lg:mt-10 p-4 lg:p-0">
-        <div
-          className="mb-10 relative overflow-hidden rounded-lg"
-          style={{ height: 400 }}
-        >
+        <div className="mb-10 relative overflow-hidden rounded-lg" style={{ height: 400 }}>
           <Image
             src={data.collectionByHandle.image?.src}
             alt={data.collectionByHandle.image?.altText || 'Collection image'}
@@ -93,9 +89,7 @@ const Collection = () => {
             layout="fill"
           />
           <div className="bg-black bg-opacity-50 absolute top-0 left-0 w-full h-full flex items-center justify-center">
-            <h2 className="text-white text-4xl">
-              {data.collectionByHandle.title}
-            </h2>
+            <h2 className="text-white text-4xl">{data.collectionByHandle.title}</h2>
           </div>
         </div>
         {data.collectionByHandle.products.edges.length > 0 ? (

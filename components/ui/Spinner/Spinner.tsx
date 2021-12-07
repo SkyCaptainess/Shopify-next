@@ -18,11 +18,7 @@ export type SpinnerProps = {
   className?: string;
 };
 
-const Spinner = ({
-  size = 'md',
-  variant = 'primary',
-  className = '',
-}: SpinnerProps) => {
+const Spinner = ({ size = 'md', variant = 'primary', className = '' }: SpinnerProps) => {
   return (
     <>
       <svg

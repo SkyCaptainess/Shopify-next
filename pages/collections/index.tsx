@@ -24,8 +24,7 @@ const CollectionsPage = () => {
       return;
     }
 
-    const cursor =
-      data.collections.edges[data.collections.edges.length - 1].cursor;
+    const cursor = data.collections.edges[data.collections.edges.length - 1].cursor;
 
     setIsLoadingMore(true);
 

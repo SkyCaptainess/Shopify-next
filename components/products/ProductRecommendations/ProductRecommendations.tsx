@@ -21,17 +21,12 @@ const ProductRecommendations = ({ productId }: ProductRecommendationsProps) => {
     return <div>error</div>;
   }
 
-  const hasRecommendations =
-    data?.productRecommendations && data.productRecommendations.length > 0;
+  const hasRecommendations = data?.productRecommendations && data.productRecommendations.length > 0;
 
   return (
     <>
       {hasRecommendations ? (
-        <ProductSlider
-          title={
-            <h3 className="text-xl font-semibold mb-2">Related Products</h3>
-          }
-        >
+        <ProductSlider title={<h3 className="text-xl font-semibold mb-2">Related Products</h3>}>
           {data.productRecommendations?.map((product) => (
             <ProductCard product={product} key={product.id} />
           ))}

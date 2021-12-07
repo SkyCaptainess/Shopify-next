@@ -35,9 +35,7 @@ const Page = ({ page }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
 export default Page;
 
-export async function getStaticProps({
-  params,
-}: GetStaticPropsContext<{ page: string }>) {
+export async function getStaticProps({ params }: GetStaticPropsContext<{ page: string }>) {
   const slug = params?.page;
 
   const res = await client.getEntries({

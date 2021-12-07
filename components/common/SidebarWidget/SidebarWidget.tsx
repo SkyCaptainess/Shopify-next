@@ -42,38 +42,24 @@ const SidebarWidget = ({ onClose, isVisible }: SidebarWidgetProps) => {
         <ul>
           <li className="border-b p-4 hover:text-primary" onClick={onClose}>
             <Link href="/products">
-              <a
-                className={`${
-                  getActiveLink('/products') ? 'text-primary' : ''
-                }`}
-              >
-                Shop All
-              </a>
+              <a className={`${getActiveLink('/products') ? 'text-primary' : ''}`}>Shop All</a>
             </Link>
           </li>
           <li className="border-b p-4 hover:text-primary" onClick={onClose}>
             <Link href="/collections">
-              <a
-                className={`${
-                  getActiveLink('/collections') ? 'text-primary' : ''
-                }`}
-              >
+              <a className={`${getActiveLink('/collections') ? 'text-primary' : ''}`}>
                 Collections
               </a>
             </Link>
           </li>
           <li className="border-b p-4 hover:text-primary" onClick={onClose}>
             <Link href="/help">
-              <a className={`${getActiveLink('/help') ? 'text-primary' : ''}`}>
-                Help
-              </a>
+              <a className={`${getActiveLink('/help') ? 'text-primary' : ''}`}>Help</a>
             </Link>
           </li>
           <li className="p-4 hover:text-primary" onClick={onClose}>
             <Link href="/about">
-              <a className={`${getActiveLink('/about') ? 'text-primary' : ''}`}>
-                About
-              </a>
+              <a className={`${getActiveLink('/about') ? 'text-primary' : ''}`}>About</a>
             </Link>
           </li>
         </ul>

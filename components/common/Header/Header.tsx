@@ -50,12 +50,7 @@ const Header = () => {
                   </div>
 
                   <div className="flex items-center lg:hidden">
-                    <Image
-                      src="/images/logo.png"
-                      alt="Toyzed Logo"
-                      width={36}
-                      height={36}
-                    />
+                    <Image src="/images/logo.png" alt="Toyzed Logo" width={36} height={36} />
                   </div>
                 </a>
               </Link>
@@ -82,18 +77,14 @@ const Header = () => {
               </Link>
             </li>
             <li
-              className={`mr-6 hover:text-primary ${
-                getActiveLink('/help') ? 'text-primary' : ''
-              }`}
+              className={`mr-6 hover:text-primary ${getActiveLink('/help') ? 'text-primary' : ''}`}
             >
               <Link href="/help">
                 <a>Help</a>
               </Link>
             </li>
             <li
-              className={`mr-6 hover:text-primary ${
-                getActiveLink('/about') ? 'text-primary' : ''
-              }`}
+              className={`mr-6 hover:text-primary ${getActiveLink('/about') ? 'text-primary' : ''}`}
             >
               <Link href="/about">
                 <a>About</a>
@@ -116,11 +107,7 @@ const Header = () => {
                 </button>
               </li>
               <li className="cursor-pointer relative" onClick={openCartSidebar}>
-                <button
-                  aria-label="cart"
-                  type="button"
-                  onClick={openCartSidebar}
-                >
+                <button aria-label="cart" type="button" onClick={openCartSidebar}>
                   <CartIcon />
                 </button>
 

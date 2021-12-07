@@ -12,10 +12,7 @@ import {
   GetCollectionsQuery,
 } from '../src/generated/graphql';
 
-const Home = ({
-  collections,
-  products,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home = ({ collections, products }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const lastCursor = products[products.length - 1].cursor;
 
   return (
@@ -37,11 +34,7 @@ const Home = ({
         {collections.slice(0, 3).map((collection) => (
           <div key={collection.node.id} className="mb-10">
             <ProductsSlider
-              title={
-                <h2 className="text-2xl font-semibold mb-4">
-                  {collection.node.title}
-                </h2>
-              }
+              title={<h2 className="text-2xl font-semibold mb-4">{collection.node.title}</h2>}
             >
               {collection.node.products.edges.map((product) => (
                 <ProductCard key={product.node.id} product={product.node} />
@@ -78,11 +71,10 @@ export const getStaticProps = async () => {
     variables: { first: 15 },
   });
 
-  const { data: collectionsData } =
-    await apolloClient.query<GetCollectionsQuery>({
-      query: GetCollectionsDocument,
-      variables: { first: 3 },
-    });
+  const { data: collectionsData } = await apolloClient.query<GetCollectionsQuery>({
+    query: GetCollectionsDocument,
+    variables: { first: 3 },
+  });
 
   return {
     props: {

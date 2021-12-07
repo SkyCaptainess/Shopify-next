@@ -26,11 +26,7 @@ const CartItem = ({ cartItem }: Props) => {
   };
 
   return (
-    <li
-      className={`lg:flex mb-4 border-b pb-4  relative ${
-        removing ? 'opacity-50' : ''
-      }`}
-    >
+    <li className={`lg:flex mb-4 border-b pb-4  relative ${removing ? 'opacity-50' : ''}`}>
       <Image
         src={cartItem?.variant?.image?.src}
         alt={cartItem.variant?.image?.altText || 'Product'}
@@ -50,8 +46,7 @@ const CartItem = ({ cartItem }: Props) => {
 
         <p className="mb-2 text-lg">x {cartItem.quantity}</p>
         <p className="font-semibold lg:text-lg text-primary mb-2">
-          {cartItem.variant?.priceV2.currencyCode}{' '}
-          {cartItem.variant?.priceV2.amount}
+          {cartItem.variant?.priceV2.currencyCode} {cartItem.variant?.priceV2.amount}
         </p>
       </div>
       <div>

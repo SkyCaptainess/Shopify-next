@@ -108,9 +108,7 @@ const ProductsPage = () => {
 
 export default ProductsPage;
 
-export const getServerSideProps = async ({
-  query,
-}: GetServerSidePropsContext) => {
+export const getServerSideProps = async ({ query }: GetServerSidePropsContext) => {
   const cursor = (query.cursor as string) || null;
   const search = (query.q as string) || null;
 

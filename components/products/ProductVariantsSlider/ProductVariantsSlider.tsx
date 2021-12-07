@@ -15,11 +15,7 @@ interface Props {
 
 SwiperCore.use([Navigation]);
 
-const ProductsVariantSlider = ({
-  images = [],
-  activeImageID,
-  onSelectImage,
-}: Props) => {
+const ProductsVariantSlider = ({ images = [], activeImageID, onSelectImage }: Props) => {
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
 
@@ -70,9 +66,7 @@ const ProductsVariantSlider = ({
                 <div className="relative">
                   <div
                     className={`absolute top-0 left-0 bottom-0 right-0 z-10 w-full h-full ${
-                      activeImageID === image.node.id
-                        ? 'border-red-500 border-2'
-                        : 'border'
+                      activeImageID === image.node.id ? 'border-red-500 border-2' : 'border'
                     }`}
                   />
                   <div className="relative" style={{ paddingTop: '100%' }}>

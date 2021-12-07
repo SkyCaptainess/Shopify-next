@@ -37,14 +37,10 @@ const Product = () => {
     defaultOptionValues[selector.name] = selector.values[0];
   });
 
-  const initialSelectedVariant = product
-    ? product.variants.edges[0].node
-    : null;
+  const initialSelectedVariant = product ? product.variants.edges[0].node : null;
 
   const [selectedOptions, setSelectedOptions] = useState(defaultOptionValues);
-  const [selectedVariant, setSelectedVariant] = useState(
-    initialSelectedVariant
-  );
+  const [selectedVariant, setSelectedVariant] = useState(initialSelectedVariant);
   const [addToCartStatus, setAddToCartStatus] = useState('idle');
   const [qty, setQty] = useState(1);
 
@@ -193,12 +189,7 @@ const Product = () => {
               >
                 Add to cart
               </Button>
-              <Button
-                className="w-full"
-                variant="inverse"
-                size="lg"
-                onClick={handleBuyNow}
-              >
+              <Button className="w-full" variant="inverse" size="lg" onClick={handleBuyNow}>
                 Buy Now
               </Button>
             </div>
@@ -229,9 +220,7 @@ const Product = () => {
   );
 };
 
-export async function getServerSideProps({
-  params,
-}: GetStaticPropsContext<{ handle: string }>) {
+export async function getServerSideProps({ params }: GetStaticPropsContext<{ handle: string }>) {
   const handle = params?.handle as string;
 
   const apolloClient = initializeApollo();

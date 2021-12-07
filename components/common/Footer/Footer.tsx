@@ -57,8 +57,7 @@ const Footer = () => {
           <div className="mb-4 lg:mb-0">
             <h4 className=" font-semibold mb-2 text-gray-600">NEWSLETTER</h4>
             <p className="mb-3 text-sm text-gray-500">
-              The latest news, articles, and resources, sent to your inbox
-              weekly.
+              The latest news, articles, and resources, sent to your inbox weekly.
             </p>
             <NewsLetter />
           </div>

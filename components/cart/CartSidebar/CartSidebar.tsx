@@ -35,22 +35,14 @@ const CartSidebar = () => {
             </div>
           )}
 
-          {false && (
-            <div>
-              Unable to display your cart items right now. Please try again
-              later.
-            </div>
-          )}
+          {false && <div>Unable to display your cart items right now. Please try again later.</div>}
 
           <>
             {checkout.lineItems.edges.length > 0 ? (
               <div data-cy="cart-list">
                 <ul className="flex-1 overflow-scroll">
                   {checkout.lineItems.edges.map((lineItem) => (
-                    <CartItem
-                      cartItem={lineItem.node as CheckoutLineItem}
-                      key={lineItem.node.id}
-                    />
+                    <CartItem cartItem={lineItem.node as CheckoutLineItem} key={lineItem.node.id} />
                   ))}
                 </ul>
 
@@ -58,22 +50,19 @@ const CartSidebar = () => {
                   <div className="mb-4 flex items-center justify-end">
                     <p className="pr-2 lg:text-lg">Sub Total:</p>
                     <p className="text-lg">
-                      {checkout.subtotalPriceV2.currencyCode}{' '}
-                      {checkout.subtotalPriceV2.amount}
+                      {checkout.subtotalPriceV2.currencyCode} {checkout.subtotalPriceV2.amount}
                     </p>
                   </div>
                   <div className="mb-4 flex items-center  justify-end">
                     <p className="pr-2 lg:text-lg">Taxes:</p>
                     <p className="text-lg">
-                      {checkout.totalTaxV2.currencyCode}{' '}
-                      {checkout.totalTaxV2.amount}
+                      {checkout.totalTaxV2.currencyCode} {checkout.totalTaxV2.amount}
                     </p>
                   </div>
                   <div className="mb-4 flex items-center  justify-end">
                     <p className="pr-2 lg:text-lg">Total:</p>
                     <p className="text-xl lg:text-2xl text-red-500 font-semibold">
-                      {checkout.totalPriceV2.currencyCode}{' '}
-                      {checkout.totalPriceV2.amount}
+                      {checkout.totalPriceV2.currencyCode} {checkout.totalPriceV2.amount}
                     </p>
                   </div>
                   <Button

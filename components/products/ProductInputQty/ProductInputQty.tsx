@@ -6,11 +6,7 @@ interface ProductInputQtyProps {
   onChange?: (qty: number, type: 'increment' | 'decrement') => void;
 }
 
-const ProductInputQty = ({
-  initialQty = 1,
-  maxQuantity,
-  onChange,
-}: ProductInputQtyProps) => {
+const ProductInputQty = ({ initialQty = 1, maxQuantity, onChange }: ProductInputQtyProps) => {
   const [qty, setQty] = useState(initialQty);
 
   const increment = () => {
@@ -47,9 +43,7 @@ const ProductInputQty = ({
       >
         -
       </button>
-      <p className="text-center w-20" >
-        {qty}
-      </p>
+      <p className="text-center w-20">{qty}</p>
       <button
         className="px-4 py-2 border-l disabled:opacity-50"
         disabled={Boolean(maxQuantity && qty >= maxQuantity)}

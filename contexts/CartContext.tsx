@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-} from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 import { IS_SERVER } from '../constants';
 import { initializeApollo } from '../lib/apollo-client';
@@ -55,8 +49,7 @@ export const CartProvider: React.FC = ({ children }) => {
     },
   });
 
-  const [lineItemToAddMutation, { data: lineItemToAddData }] =
-    useCheckoutLineItemsAddMutation();
+  const [lineItemToAddMutation, { data: lineItemToAddData }] = useCheckoutLineItemsAddMutation();
 
   const [lineItemToRemoveMutation] = useCheckoutLineItemsRemoveMutation();
 
@@ -77,9 +70,7 @@ export const CartProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     const initCart = async () => {
-      const checkoutIdLocalStorage = !IS_SERVER
-        ? localStorage.getItem('checkoutId')
-        : '';
+      const checkoutIdLocalStorage = !IS_SERVER ? localStorage.getItem('checkoutId') : '';
 
       if (checkoutIdLocalStorage) {
         fetchCheckout(checkoutIdLocalStorage);
