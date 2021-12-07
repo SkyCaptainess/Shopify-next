@@ -14,7 +14,7 @@ const PER_PAGE = 12;
 const CollectionsPage = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const { data, fetchMore, error } = useGetCollectionsQuery({
+  const { data, fetchMore } = useGetCollectionsQuery({
     variables: { first: PER_PAGE },
     notifyOnNetworkStatusChange: true,
   });

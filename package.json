@@ -1,11 +1,12 @@
 {
-  "name": "bagzed",
+  "name": "toyzed",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "lint:fix": "eslint --fix --ext .js,.ts,.tsx ./ --ignore-path .gitignore",
     "lint": "next lint",
     "generate": "graphql-codegen --config codegen.yml",
     "test": "jest --watch",
@@ -42,17 +43,21 @@
     "@types/lodash": "^4.14.177",
     "@types/nprogress": "^0.2.0",
     "@types/react": "17.0.20",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
     "autoprefixer": "^10.3.4",
     "babel-jest": "^27.4.0",
     "cypress": "^9.1.1",
     "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2",
+    "eslint-config-next": "^11.1.2",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "graphql": "^15.7.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.0",
     "postcss": "^8.3.6",
     "prettier": "^2.5.1",
     "tailwindcss": "^2.2.11",
-    "typescript": "4.4.2"
+    "typescript": "^4.4.2"
   }
 }

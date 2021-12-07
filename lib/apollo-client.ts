@@ -7,7 +7,7 @@ import { relayStylePagination } from '@apollo/client/utilities';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
-type PageProps = Record<string, any>;
+type PageProps = Record<string, string>;
 
 let apolloClient: ApolloClient<NormalizedCacheObject | null>;
 
@@ -43,7 +43,7 @@ function createApolloClient() {
   });
 }
 
-export function initializeApollo(initialState = null) {
+export function initializeApollo(initialState: string | null = null) {
   const _apolloClient = apolloClient ?? createApolloClient();
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state

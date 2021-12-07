@@ -11,7 +11,7 @@ const Page = ({ page }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const renderOptions = {
     renderNode: {
       // eslint-disable-next-line react/display-name
-      [BLOCKS.PARAGRAPH]: (__: any, children: React.ReactNode) => {
+      [BLOCKS.PARAGRAPH]: (__: unknown, children: React.ReactNode) => {
         return <p className="mb-2">{children}</p>;
       },
     },

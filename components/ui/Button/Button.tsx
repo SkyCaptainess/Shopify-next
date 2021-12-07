@@ -12,7 +12,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   active?: boolean;
   type?: 'submit' | 'reset' | 'button';
-  component?: string | JSXElementConstructor<any>;
+  component?: string | JSXElementConstructor<unknown>;
   width?: number;
   loading?: boolean;
   disabled?: boolean;

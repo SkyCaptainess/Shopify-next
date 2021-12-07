@@ -16,8 +16,8 @@ interface Props {
 SwiperCore.use([Navigation]);
 
 const ProductsVariantSlider = ({ images = [], activeImageID, onSelectImage }: Props) => {
-  const navigationPrevRef = useRef(null);
-  const navigationNextRef = useRef(null);
+  const navigationPrevRef = useRef<HTMLButtonElement>(null);
+  const navigationNextRef = useRef<HTMLButtonElement>(null);
 
   return (
     <div className="mt-2 relative">
@@ -50,8 +50,10 @@ const ProductsVariantSlider = ({ images = [], activeImageID, onSelectImage }: Pr
             nextEl: navigationNextRef.current,
           }}
           onSwiper={(swiper) => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             swiper.params.navigation.prevEl = navigationPrevRef.current;
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             swiper.params.navigation.nextEl = navigationNextRef.current;
 

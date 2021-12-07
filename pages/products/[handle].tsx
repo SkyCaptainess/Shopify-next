@@ -32,7 +32,7 @@ const Product = () => {
 
   const product = data?.productByHandle;
 
-  let defaultOptionValues: Record<string, string> = {};
+  const defaultOptionValues: Record<string, string> = {};
   product?.options.forEach((selector) => {
     defaultOptionValues[selector.name] = selector.values[0];
   });

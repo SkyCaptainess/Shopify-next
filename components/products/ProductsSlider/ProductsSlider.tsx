@@ -73,8 +73,10 @@ const ProductsSlider = ({ children, title }: ProductsSliderProps) => {
           },
         }}
         onInit={(swiper) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           swiper.params.navigation.prevEl = navigationPrevRef.current;
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           swiper.params.navigation.nextEl = navigationNextRef.current;
 
