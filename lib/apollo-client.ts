@@ -5,9 +5,10 @@ import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 import { relayStylePagination } from '@apollo/client/utilities';
 
-export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type PageProps = Record<string, any>;
 
-type PageProps = Record<string, string>;
+export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 let apolloClient: ApolloClient<NormalizedCacheObject | null>;
 

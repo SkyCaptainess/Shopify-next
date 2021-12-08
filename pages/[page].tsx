@@ -44,7 +44,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ page: s
     limit: 1,
   });
 
-  const page: PageType | null = res.items.length ? res.items[0] : null;
+  const page: PageType | null = res.items.length ? (res.items[0] as PageType) : null;
 
   return {
     props: {
@@ -56,7 +56,8 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ page: s
 
 export async function getStaticPaths() {
   const res = await client.getEntries({ content_type: 'pages' });
-  const paths = res.items.map((item: PageType) => ({
+  const items = res.items as PageType[];
+  const paths = items.map((item) => ({
     params: {
       page: item.fields.slug,
     },

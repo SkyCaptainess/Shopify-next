@@ -12,7 +12,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   active?: boolean;
   type?: 'submit' | 'reset' | 'button';
-  component?: string | JSXElementConstructor<unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  component?: string | JSXElementConstructor<any>;
   width?: number;
   loading?: boolean;
   disabled?: boolean;
