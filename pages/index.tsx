@@ -9,7 +9,7 @@ import {
   GetProductsQuery,
   GetCollectionsDocument,
   GetCollectionsQuery,
-} from '../src/generated/graphql';
+} from '@/generated/graphql';
 
 const Home = ({ collections, products }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const lastCursor = products[products.length - 1].cursor;

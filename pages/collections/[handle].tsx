@@ -11,7 +11,7 @@ import {
   GetSingleCollectionDocument,
   GetSingleCollectionQuery,
   useGetSingleCollectionQuery,
-} from '../../src/generated/graphql';
+} from '@/generated/graphql';
 
 const PER_PAGE = 20;
 

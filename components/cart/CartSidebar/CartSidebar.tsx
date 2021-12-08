@@ -3,7 +3,7 @@ import { useCart } from '@/contexts/CartContext';
 import CartItem from '../CartItem';
 import Close from '@/components/icons/Close';
 import { Button, Spinner } from '@/components/ui';
-import { CheckoutLineItem } from '../../../src/generated/graphql';
+import { CheckoutLineItem } from '@/generated/graphql';
 
 const CartSidebar = () => {
   const { isCartSidebarOpen, closeCartSidebar, checkout } = useCart();

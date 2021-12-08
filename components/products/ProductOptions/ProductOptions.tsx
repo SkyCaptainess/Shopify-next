@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductOption } from '../../../src/generated/graphql';
+import { ProductOption } from '@/generated/graphql';
 
 interface ProductOptionsProps {
   options: ProductOption[];

@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { GetProductsQuery } from '../../../src/generated/graphql';
+import { GetProductsQuery } from '@/generated/graphql';
 
 interface ProductCardProps {
   product: GetProductsQuery['products']['edges'][0]['node'];

@@ -7,7 +7,7 @@ import {
   GetProductsQuery,
   GetProductsQueryVariables,
   useGetProductsQuery,
-} from '../../src/generated/graphql';
+} from '@/generated/graphql';
 import { initializeApollo, addApolloState } from '@/lib/apollo-client';
 import { Button, Alert } from '@/components/ui';
 import ProductsSkeleton from '@/components/products/ProductsSkeleton';

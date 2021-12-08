@@ -19,6 +19,7 @@
       "@/config/*": ["config/*"],
       "@/constants": ["constants"],
       "@/contexts/*": ["contexts/*"],
+      "@/generated/*": ["generated/*"],
       "@/hooks/*": ["hooks/*"],
       "@/lib/*": ["lib/*"],
       "@/types": ["types"],

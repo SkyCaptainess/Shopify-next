@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
 
-import { GetCollectionsQuery } from '../../src/generated/graphql';
+import { GetCollectionsQuery } from '@/generated/graphql';
 
 interface CollectionsProps {
   collections: GetCollectionsQuery['collections']['edges'];

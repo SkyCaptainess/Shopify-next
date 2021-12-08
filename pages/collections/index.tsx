@@ -6,7 +6,7 @@ import {
   GetCollectionsDocument,
   GetCollectionsQuery,
   useGetCollectionsQuery,
-} from '../../src/generated/graphql';
+} from '@/generated/graphql';
 import { Button, Alert } from '@/components/ui';
 
 const PER_PAGE = 12;

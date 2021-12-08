@@ -17,7 +17,7 @@ import {
   GetSingleProductQuery,
   Image as ImageType,
   useGetSingleProductQuery,
-} from '../../src/generated/graphql';
+} from '@/generated/graphql';
 
 const Product = () => {
   const { query } = useRouter();

@@ -2,7 +2,7 @@ import React from 'react';
 
 import ProductSlider from '@/components/products/ProductsSlider';
 import ProductCard from '@/components/products/ProductCard';
-import { useGetProductRecommendationsQuery } from '../../../src/generated/graphql';
+import { useGetProductRecommendationsQuery } from '@/generated/graphql';
 
 interface ProductRecommendationsProps {
   productId: string;

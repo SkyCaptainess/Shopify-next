@@ -5,7 +5,7 @@ import ArrowRight from '@/components/icons/ArrowRight';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Image as ImageType, ImageEdge } from '../../../src/generated/graphql';
+import { Image as ImageType, ImageEdge } from '@/generated/graphql';
 
 interface Props {
   images: ImageEdge[];

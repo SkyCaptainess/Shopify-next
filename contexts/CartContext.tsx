@@ -8,7 +8,7 @@ import {
   useCheckoutCreateMutation,
   useCheckoutLineItemsAddMutation,
   useCheckoutLineItemsRemoveMutation,
-} from '../src/generated/graphql';
+} from '@/generated/graphql';
 
 type Status = 'idle' | 'loading' | 'succeeded' | 'failed';
 

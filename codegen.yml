@@ -2,7 +2,7 @@ overwrite: true
 schema: './shopify-schema.json'
 documents: 'graphql/**/*.graphql'
 generates:
-  src/generated/graphql.tsx:
+  generated/graphql.tsx:
     plugins:
       - 'typescript'
       - 'typescript-operations'
