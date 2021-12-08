@@ -1,8 +1,8 @@
 import React from 'react';
-import { useCart } from '../../../contexts/CartContext';
+import { useCart } from '@/contexts/CartContext';
 import CartItem from '../CartItem';
-import Close from '../../icons/Close';
-import { Button, Spinner } from '../../ui';
+import Close from '@/components/icons/Close';
+import { Button, Spinner } from '@/components/ui';
 import { CheckoutLineItem } from '../../../src/generated/graphql';
 
 const CartSidebar = () => {

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-import { initializeApollo, addApolloState } from '../../lib/apollo-client';
-import Collections from '../../components/collections/Collections';
+import { initializeApollo, addApolloState } from '@/lib/apollo-client';
+import Collections from '@/components/collections/Collections';
 import {
   GetCollectionsDocument,
   GetCollectionsQuery,
   useGetCollectionsQuery,
 } from '../../src/generated/graphql';
-import { Button, Alert } from '../../components/ui';
+import { Button, Alert } from '@/components/ui';
 
 const PER_PAGE = 12;
 

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { initializeApollo, addApolloState } from '../../lib/apollo-client';
+import { initializeApollo, addApolloState } from '@/lib/apollo-client';
 import { useRouter } from 'next/router';
 import { GetServerSidePropsContext } from 'next';
 import Error from 'next/error';
 
-import ProductCard from '../../components/products/ProductCard';
-import { Button } from '../../components/ui';
+import ProductCard from '@/components/products/ProductCard';
+import { Button } from '@/components/ui';
 import {
   GetSingleCollectionDocument,
   GetSingleCollectionQuery,

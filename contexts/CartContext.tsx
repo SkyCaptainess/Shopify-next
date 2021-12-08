@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-import { IS_SERVER } from '../constants';
-import { initializeApollo } from '../lib/apollo-client';
+import { IS_SERVER } from '@/constants';
+import { initializeApollo } from '@/lib/apollo-client';
 import {
   GetCartDocument,
   GetCartQuery,

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import ProductCard from '../../components/products/ProductCard';
+import ProductCard from '@/components/products/ProductCard';
 import {
   GetProductsDocument,
   GetProductsQuery,
   GetProductsQueryVariables,
   useGetProductsQuery,
 } from '../../src/generated/graphql';
-import { initializeApollo, addApolloState } from '../../lib/apollo-client';
-import { Button, Alert } from '../../components/ui';
-import ProductsSkeleton from '../../components/products/ProductsSkeleton';
+import { initializeApollo, addApolloState } from '@/lib/apollo-client';
+import { Button, Alert } from '@/components/ui';
+import ProductsSkeleton from '@/components/products/ProductsSkeleton';
 
 const PER_PAGE = 15;
 

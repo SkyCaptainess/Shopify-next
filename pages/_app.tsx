@@ -5,10 +5,10 @@ import Router from 'next/router';
 import nProgress from 'nprogress';
 import { ThemeProvider } from 'next-themes';
 
-import Layout from '../components/common/Layout';
-import { CartProvider } from '../contexts/CartContext';
-import { useApollo } from '../lib/apollo-client';
-import seo from '../config/seo.json';
+import Layout from '@/components/common/Layout';
+import { CartProvider } from '@/contexts/CartContext';
+import { useApollo } from '@/lib/apollo-client';
+import seo from '@/config/seo.json';
 
 import 'swiper/css';
 import 'swiper/css/navigation';

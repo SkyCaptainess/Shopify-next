@@ -1,10 +1,9 @@
 import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
-import ProductCard from '../components/products/ProductCard';
-import ProductsSlider from '../components/products/ProductsSlider';
-import { Button } from '../components/ui';
-import Hero from '../components/ui/Hero/Hero';
-import { initializeApollo } from '../lib/apollo-client';
+import ProductCard from '@/components/products/ProductCard';
+import ProductsSlider from '@/components/products/ProductsSlider';
+import { Button, Hero } from '@/components/ui';
+import { initializeApollo } from '@/lib/apollo-client';
 import {
   GetProductsDocument,
   GetProductsQuery,

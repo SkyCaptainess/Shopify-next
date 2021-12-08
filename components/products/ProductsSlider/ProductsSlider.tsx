@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Navigation } from 'swiper';
 
-import ArrowLeft from '../../icons/ArrowLeft';
-import ArrowRight from '../../icons/ArrowRight';
+import ArrowLeft from '@/components/icons/ArrowLeft';
+import ArrowRight from '@/components/icons/ArrowRight';
 
 interface ProductsSliderProps {
   children: React.ReactNode;

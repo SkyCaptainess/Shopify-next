@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import useOnClickOutside from '../../../hooks/use-click-outside';
-import CloseIcon from '../../icons/Close';
+import useOnClickOutside from '@/hooks/use-click-outside';
+import CloseIcon from '@/components/icons/Close';
 
 interface SidebarWidgetProps {
   isVisible: boolean;

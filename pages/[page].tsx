@@ -4,8 +4,8 @@ import Error from 'next/error';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
 
-import client from '../lib/contentful-client';
-import { Page as PageType } from '../types';
+import client from '@/lib/contentful-client';
+import { Page as PageType } from '@/types';
 
 const Page = ({ page }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const renderOptions = {

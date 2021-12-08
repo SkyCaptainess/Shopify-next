@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { useCart } from '../../../contexts/CartContext';
-import Trash from '../../icons/Trash';
-import { Spinner } from '../../ui';
+import { useCart } from '@/contexts/CartContext';
+import Trash from '@/components/icons/Trash';
+import { Spinner } from '@/components/ui';
 import { CheckoutLineItem } from '../../../src/generated/graphql';
 
 interface Props {

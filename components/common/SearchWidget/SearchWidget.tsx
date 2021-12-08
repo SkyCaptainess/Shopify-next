@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import SearchBar from '../SearchBar';
-import useOnClickOutside from '../../../hooks/use-click-outside';
+import useOnClickOutside from '@/hooks/use-click-outside';
 
 interface SearchWidgetProps {
   isVisible: boolean;

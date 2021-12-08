@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import CartIcon from '../../icons/Cart';
-import SearchIcon from '../../icons/Search';
-import HamburgerIcon from '../../icons/Hamburger';
-import { useCart } from '../../../contexts/CartContext';
-import SearchWidget from '../SearchWidget';
-import SidebarWidget from '../SidebarWidget';
-import ThemeSwitcher from '../ThemeSwitcher';
+import CartIcon from '@/components/icons/Cart';
+import SearchIcon from '@/components/icons/Search';
+import HamburgerIcon from '@/components/icons/Hamburger';
+import { useCart } from '@/contexts/CartContext';
+import SearchWidget from '@/components/common/SearchWidget';
+import SidebarWidget from '@/components/common/SidebarWidget';
+import ThemeSwitcher from '@/components/common/ThemeSwitcher';
 
 const Header = () => {
   const [isSearchWidgetVisible, setIsSearchWidgetVisible] = useState(false);

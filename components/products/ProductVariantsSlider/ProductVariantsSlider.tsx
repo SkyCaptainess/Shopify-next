@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
-import ArrowLeft from '../../icons/ArrowLeft';
-import ArrowRight from '../../icons/ArrowRight';
+import ArrowLeft from '@/components/icons/ArrowLeft';
+import ArrowRight from '@/components/icons/ArrowRight';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 

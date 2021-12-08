@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
-import SearchIcon from '../../icons/Search';
+import SearchIcon from '@/components/icons/Search';
 
 interface SearchBarProps {
   onSubmit(): void;

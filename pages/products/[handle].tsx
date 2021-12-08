@@ -3,21 +3,21 @@ import { NextSeo } from 'next-seo';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Error from 'next/error';
-import { initializeApollo, addApolloState } from '../../lib/apollo-client';
-import { Button } from '../../components/ui';
-import { CartSuccessPopup } from '../../components/cart';
-import ProductOptions from '../../components/products/ProductOptions';
-import ProductVariantsSlider from '../../components/products/ProductVariantsSlider';
-import ProductInputQty from '../../components/products/ProductInputQty';
-import ProductRecommendations from '../../components/products/ProductRecommendations';
-import { useCart } from '../../contexts/CartContext';
+import { useRouter } from 'next/router';
+import { initializeApollo, addApolloState } from '@/lib/apollo-client';
+import { Button } from '@/components/ui';
+import { CartSuccessPopup } from '@/components/cart';
+import ProductOptions from '@/components/products/ProductOptions';
+import ProductVariantsSlider from '@/components/products/ProductVariantsSlider';
+import ProductInputQty from '@/components/products/ProductInputQty';
+import ProductRecommendations from '@/components/products/ProductRecommendations';
+import { useCart } from '@/contexts/CartContext';
 import {
   GetSingleProductDocument,
   GetSingleProductQuery,
   Image as ImageType,
   useGetSingleProductQuery,
 } from '../../src/generated/graphql';
-import { useRouter } from 'next/router';
 
 const Product = () => {
   const { query } = useRouter();

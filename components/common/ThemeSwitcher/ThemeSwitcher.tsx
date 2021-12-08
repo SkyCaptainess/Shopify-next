@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 
-import SunIcon from '../../icons/Sun';
-import MoonIcon from '../../icons/Moon';
+import SunIcon from '@/components/icons/Sun';
+import MoonIcon from '@/components/icons/Moon';
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);

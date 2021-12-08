@@ -1,7 +1,7 @@
 import React from 'react';
-import { CartSidebar } from '../../cart';
-import Footer from '../Footer';
-import Header from '../Header';
+import { CartSidebar } from '@/components/cart';
+import Footer from '@/components/common/Footer';
+import Header from '@/components/common/Header';
 
 const Layout: React.FunctionComponent = ({ children }) => {
   return (
