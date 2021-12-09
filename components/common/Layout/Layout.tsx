@@ -10,9 +10,8 @@ const Layout: React.FunctionComponent = ({ children }) => {
   return (
     <>
       <AnnouncementBar>
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col lg:flex-row items-center justify-center px-4">
           <p className="text-center text-white mr-2">New Released Amazing Toys For Your Kids.</p>
-          <p className="text-white mr-2">-</p>
           <Link href="/products">
             <a className="text-white font-semibold">Shop Now</a>
           </Link>
