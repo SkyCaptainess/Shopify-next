@@ -9,7 +9,7 @@
     "locale": "en_IE",
     "images": [
       {
-        "url": "/card.png",
+        "url": "https://toyzed.vercel.app/images/featured.png",
         "width": 800,
         "height": 600,
         "alt": "Toyzed ECommerce"
