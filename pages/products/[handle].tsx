@@ -138,7 +138,7 @@ const Product = () => {
           ],
         }}
       />
-      <div className="container mx-auto my-4 px-4 lg:px-0">
+      <div className="max-w-7xl px-6 mx-auto my-4">
         <div className="lg:flex mb-4 bg-white dark:bg-gray-800 p-4">
           <div className="lg:pr-6 lg:w-1/2">
             <div className="relative" style={{ paddingTop: '80%' }}>

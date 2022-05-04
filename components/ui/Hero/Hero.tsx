@@ -14,8 +14,8 @@ const Hero = ({ children, image }: HeroProps) => {
         }}
         className="w-full h-full absolute top-0 left-0 z-10 bg-cover bg-no-repeat"
       />
-      <div className="absolute z-20 top-0 left-0 w-full h-full flex items-center justify-center text-gray-700">
-        <div className="container mt-2 mx-auto p-4 lg:p-0">{children}</div>
+      <div className="absolute z-20 top-0 left-0 w-full h-full flex items-center text-gray-700">
+        <div className="max-w-7xl px-6 w-full mt-2 mx-auto">{children}</div>
       </div>
     </div>
   );

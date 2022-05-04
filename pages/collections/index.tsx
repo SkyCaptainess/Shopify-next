@@ -37,7 +37,7 @@ const CollectionsPage = () => {
 
   if (!data) {
     return (
-      <div className="container mx-auto p-4 lg:p-0 mt-6">
+      <div className="max-w-7xl px-6 mx-auto mt-6">
         <Alert
           variant="danger"
           message="Sorry. We were'nt able to display collections right now. Please try again soon."
@@ -47,7 +47,7 @@ const CollectionsPage = () => {
   }
 
   return (
-    <div className="container mx-auto p-4 lg:p-0 mt-6">
+    <div className="max-w-7xl px-6 mx-auto mt-6">
       <h2 className="text-2xl font-semibold mb-4">Collections</h2>
       <Collections collections={data.collections.edges} />
       <div className="mt-10 text-center">

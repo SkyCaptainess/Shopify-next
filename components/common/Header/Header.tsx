@@ -27,8 +27,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-white dark:bg-gray-800 p-4 lg:p-0 sticky top-0 left-0 z-30 w-full ">
-        <div className="h-10 lg:h-16 flex items-center mx-auto container">
+      <header className="bg-white dark:bg-gray-800 py-4 lg:py-0 sticky top-0 left-0 z-30 w-full ">
+        <div className="h-10 lg:h-16 flex items-center mx-auto max-w-7xl px-6">
           <div className="flex flex-1 lg:flex-none items-center">
             <button
               className="lg:hidden mr-4"

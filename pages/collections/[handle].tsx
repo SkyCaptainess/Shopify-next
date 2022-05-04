@@ -80,7 +80,7 @@ const Collection = () => {
 
   return (
     <div>
-      <div className="container mx-auto lg:mt-10 p-4 lg:p-0">
+      <div className="max-w-7xl px-6 mx-auto lg:mt-10">
         <div className="mb-10 relative overflow-hidden rounded-lg" style={{ height: 400 }}>
           <Image
             src={data.collectionByHandle.image?.src}

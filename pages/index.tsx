@@ -29,7 +29,7 @@ const Home = ({ collections, products }: InferGetStaticPropsType<typeof getStati
           </a>
         </Link>
       </Hero>
-      <div className="container mx-auto p-4 lg:p-0 mt-10">
+      <div className="max-w-7xl px-6 mx-auto mt-10">
         {collections.slice(0, 3).map((collection) => (
           <div key={collection.node.id} className="mb-10">
             <ProductsSlider

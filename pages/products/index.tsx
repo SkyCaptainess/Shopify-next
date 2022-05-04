@@ -34,7 +34,7 @@ const ProductsPage = () => {
 
   if (loading || !data) {
     return (
-      <div className="container mx-auto mt-6 p-4 lg:p-0">
+      <div className="max-w-7xl px-6 mx-auto mt-6">
         <h2 className="text-2xl font-semibold mb-4">Products</h2>
         <ProductsSkeleton />
       </div>
@@ -52,7 +52,7 @@ const ProductsPage = () => {
 
   if (error) {
     return (
-      <div className="container mx-auto mt-6 p-4 lg:p-0">
+      <div className="max-w-7xl px-6 mx-auto mt-6">
         <Alert
           variant="danger"
           message="Sorry. We were'nt able to display products right now. Please try again soon."
@@ -62,7 +62,7 @@ const ProductsPage = () => {
   }
 
   return (
-    <div className="container mx-auto mt-6 p-4 lg:p-0">
+    <div className="max-w-7xl px-6 mx-auto mt-6">
       <h2 className="text-2xl font-semibold mb-4">Products</h2>
 
       {search ? (

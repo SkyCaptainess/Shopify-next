@@ -22,7 +22,7 @@ const Page = ({ page }: InferGetStaticPropsType<typeof getStaticProps>) => {
   }
 
   return (
-    <div className="container mx-auto mt-6">
+    <div className="max-w-7xl px-6 mx-auto mt-6">
       <div className="bg-white dark:bg-gray-800 p-4">
         <h1 className="text-2xl font-semibold mb-4">{page.fields.title}</h1>
         <div className="whitespace-pre-wrap">

@@ -19,10 +19,7 @@ const SearchWidget = ({ isVisible, onClose }: SearchWidgetProps) => {
   return (
     <>
       <div className="w-full fixed top-0 z-40">
-        <div
-          className="bg-white dark:bg-gray-800 p-4 flex items-center justify-center mt-14 lg:mt-16"
-          ref={ref}
-        >
+        <div className="bg-white dark:bg-gray-800 p-4 flex items-center justify-center" ref={ref}>
           <SearchBar onSubmit={onClose} />
         </div>
       </div>
