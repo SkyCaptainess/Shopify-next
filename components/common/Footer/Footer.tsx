@@ -3,8 +3,8 @@ import NewsLetter from '@/components/common/NewsLetter';
 
 const Footer = () => {
   return (
-    <footer className="max-w-7xl px-6 py-6 bg-gray-200 dark:bg-gray-800 mt-10">
-      <div className="container mx-auto">
+    <footer className=" px-6 py-6 bg-gray-200 dark:bg-gray-800 mt-10">
+      <div className="container mx-auto max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           <div className="mb-4 lg:mb-0">
             <h4 className="font-semibold mb-2 text-gray-600">COMPANY</h4>
